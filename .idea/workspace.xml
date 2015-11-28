@@ -26,8 +26,8 @@
       <file leaf-file-name="UserWeb.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/admin/src/com/libmanagement/admin/web/UserWeb.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25188375">
-              <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.4262648">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding>
                 <element signature="e#1033#1034#0" expanded="true" />
                 <element signature="e#1082#1083#0" expanded="true" />
@@ -576,12 +576,12 @@
       <option name="number" value="Default" />
       <updated>1448534125078</updated>
       <workItem from="1448534129022" duration="7349000" />
-      <workItem from="1448696659521" duration="8166000" />
+      <workItem from="1448696659521" duration="9573000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15515000" />
+    <option name="totallyTimeSpent" value="16922000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -1058,8 +1058,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/admin/src/com/libmanagement/admin/web/UserWeb.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25188375">
-          <caret line="26" column="14" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.4262648">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding>
             <element signature="e#1033#1034#0" expanded="true" />
             <element signature="e#1082#1083#0" expanded="true" />
