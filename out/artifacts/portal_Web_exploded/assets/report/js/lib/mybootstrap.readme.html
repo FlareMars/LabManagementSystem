@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Expires" CONTENT="0" />
+    <meta http-equiv="Cache-Control" CONTENT="no-cache" />
+    <meta http-equiv="Cache-Control" CONTENT="no-store" />
+    <meta http-equiv="Pragma" content="no-cache" />
+	<meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0" />
+	<style type="text/css">
+	<textarea>{
+		width:800px;
+		height:200px;
+	}
+	</style>
+</head>
+<body>
+<h3>链接,button</h3>
+<textarea rows="14" cols="200" readonly="readonly">
+<a class="ajax" href="!必须" data-target="可选" error_msg="可选,默认:系统错误，请联系管理员">
+<button class="ajax" href="!必须" data-target="可选" error_msg="可选,默认:系统错误，请联系管理员>
+标记为ajax后,将在data-target指定的document对象中使用href链接的内容,当错误时,链接或按钮显示错误信息
+页面成功展示后会抛出一个事件，通过如下方法捕捉并使用
+$("ajax链接或按钮Id或其他表达式").on('ajax-success',function(){
+});
+按钮链接所在页面被ajax重复被加载时，应该如下编写
+$('body').delegate('ajax链接或按钮Id或其他表达式','ajax-success',function(){
+});
+A:需要得到链接点击时的某些参数?
+Q:可以在链接中添加属性【data-属性变量】=值，在事件监听中通过$(this).data().属性变量的方式获取到(这个是bootstrap自身提供)
+
+A:链接中放入参数
+Q:href中设定参数，或者通过data-params指定参数
+]</textarea>
+
+<h3>form,input</h3>
+<textarea rows="7" cols="200" readonly="readonly">
+<form class="ajax" action="" method="POST|GET 默认POST" data-target="可选" error_msg="可选,默认:系统错误，请联系管理员">
+	<input required/>
+</form>
+标记为ajax后,将在data-target指定的document对象中使用href链接的内容,当错误时,链接或按钮显示错误信息;input标记为required后,将对输入进行判断
+</textarea>
+
+
+<h3>history</h3>
+<textarea rows="7" cols="200" readonly="readonly">
+框架提供了ajax下的浏览器前进后退的支持。
+使用时，许在一个大的功能页，如：/pages/service/index.jsp中
+var content = $("#descPanel");  //前进回退主要在哪个div中
+var origContent = content.html(); //获取进入页面时的内容，
+$.history.init(function(hash) {
+	if (hash != "") { //改if,else为最进本框架。。可套用
+		$("#service-create-btn").hide(); //其他逻辑控 制
+		$("#service-back-btn").show(); // 其他逻辑控制
+		content.load(hash);  //ajax重新加载地址，可套用
+	}else{  //后退到该功能页最开始的时候,使用刚进入页面时的内容作为内容
+		$("#service-create-btn").show();   
+		$("#service-back-btn").hide();
+		content.html(origContent);
+	}
+});
+
+不是所有的ajax请求都需要history.back(),因此如下代码
+<button class="btn btn-primary ajax" data-target="#descPanel" id="service-create-btn"
+		 		href="<g:path />/pages/service/ssr/serviceCreator.jsp"  history="true">创建服务</button>
+history="true",表明这次跳转的目标可以被history.back
+</textarea>
+
+
+<h3>Tab控制</h3>
+<textarea rows="7" cols="200" readonly="readonly">
+<button type="button" class="btn btn-primary pull-right"
+	data-toggle="tab" data-target="#ssr-tabs" id="next-btn">下一步</button>
+
+data-toggle=tab,表明该按钮将控制tab,data-target="#ssr-tabs"表明按钮将控制id为ssr-tabs的组件，当点击按钮自动将该tab选中当前显示的下一个
+
+
+$(function(){
+	$("#ssr-tabs").initTabEventProxy({
+		'onlast':function(){
+			$('#submit-order').show();
+			$('#next-btn').hide();
+		},
+		'onmiddle':function(){
+			$('#submit-order').hide();
+			$('#next-btn').show();
+		},
+		'onfirst':function(){
+			$('#submit-order').hide();
+			$('#next-btn').show();
+		}
+	});
+});
+$("#tabId").initTabEventProxy函数，将把tab显示的状态回调给定的函数配置
+{
+	onlast:最后一个tab页显示
+	onmiddle:中间的tab页显示
+	onfirst:第一个tab页显示
+}
+考虑到性能，已经这个函数的可用场景，封装为显示调用，例：pages\service\ssr\serviceCreator.jsp，即代码部分
+当非最后一页时，展示下一步按钮，最后一页时展示提交按钮
+</textarea>
+
+</body>
+</html>

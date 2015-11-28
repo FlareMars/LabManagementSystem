@@ -1,0 +1,23 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="portal:Web exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/portal_Web_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="portal/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="portal" />
+          <element id="module-output" name="core" />
+          <element id="module-output" name="common" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="spring-4.1.7.RELEASE" />
+          <element id="library" level="project" name="jackson" />
+          <element id="library" level="project" name="hibernate" />
+          <element id="library" level="project" name="common-lib" />
+          <element id="library" level="project" name="jstl-1.2" />
+          <element id="library" level="project" name="shiro-1.2.4" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

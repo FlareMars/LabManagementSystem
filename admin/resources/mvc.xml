@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:util="http://www.springframework.org/schema/util"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc.xsd
+            			http://www.springframework.org/schema/beans 
+            			http://www.springframework.org/schema/beans/spring-beans.xsd
+            			http://www.springframework.org/schema/context 
+            			http://www.springframework.org/schema/context/spring-context.xsd
+            			http://www.springframework.org/schema/util
+            			http://www.springframework.org/schema/util/spring-util.xsd
+            			http://www.springframework.org/schema/aop 
+          				http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<context:annotation-config />
+	<util:properties id="propeties" location="classpath:config.properties"/>
+	<!-- 扫描包 -->
+	<context:component-scan base-package=" com.libmanagement.admin"/>
+	<!-- 注解驱动 -->
+	<mvc:annotation-driven>
+
+		<mvc:argument-resolvers>
+			<bean class="com.libmanagement.common.web.PageParamsResolver"/>
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+
+
+
+	<!-- 文件上传控制组件 -->
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</bean>
+
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+
+
+		<property name="viewResolvers">
+			<list>
+
+				<bean id="jspResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+					<property name="prefix" value="/"/>
+					<property name="suffix" value=".jsp"></property>
+				</bean>
+
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+
+					<property name="extractValueFromSingleKeyModel" value="true" />
+					<property name="objectMapper">
+						<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+							<property name="serializationInclusion">
+								<value type="com.fasterxml.jackson.annotation.JsonInclude$Include">NON_NULL</value>
+							</property>
+						</bean>
+					</property>
+				</bean>
+
+
+			</list>
+		</property>
+	</bean>
+
+	<bean id="authorizationAdvice" class="com.libmanagement.admin.authorize.AuthorizationAdvice"/>
+	<!-- 针对所有的controller方法做切片 -->
+	<aop:config proxy-target-class="true">
+		<aop:aspect id="authorizationAspect" ref="authorizationAdvice">
+			<aop:pointcut id="authorizationPotCt"
+						  expression="execution(@com.libmanagement.common.web.authorize.Authorization * com.libmanagement.admin.common.WebBaseBean+.*(..)) || execution(@com.libmanagement.common.web.authorize.Authorization * com.libmanagement.admin.common.RestBaseBean+.*(..))" />
+			<aop:around method="around" pointcut-ref="authorizationPotCt"/>
+		</aop:aspect>
+	</aop:config>
+
+	<mvc:default-servlet-handler />
+
+</beans>
