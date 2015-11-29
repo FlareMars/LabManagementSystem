@@ -1,14 +1,9 @@
 *.iml
 out/
-.png
+*.png
 .idea/
-portal/
-.gif
-.jpg
+*.jpg
 *.gif
 *.jpeg
 *.jpg
 *.jar
-admin/webapps/BJUI/
-admin/resources/
-*.txt
