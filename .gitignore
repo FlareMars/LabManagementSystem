@@ -5,3 +5,10 @@ out/
 portal/
 .gif
 .jpg
+*.gif
+*.jpeg
+*.jpg
+*.jar
+admin/webapps/BJUI/
+admin/resources/
+*.txt
