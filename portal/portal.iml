@@ -39,14 +39,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Tomcat 7.0.63" level="application_server_libraries" />
-    <orderEntry type="library" name="common-lib" level="project" />
-    <orderEntry type="library" name="hibernate" level="project" />
-    <orderEntry type="library" name="jackson" level="project" />
-    <orderEntry type="library" name="jstl-1.2" level="project" />
-    <orderEntry type="library" name="shiro-1.2.4" level="project" />
-    <orderEntry type="library" name="spring-4.1.7.RELEASE" level="project" />
     <orderEntry type="module" module-name="common" />
     <orderEntry type="module" module-name="core" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="tomcat" level="project" />
   </component>
 </module>
