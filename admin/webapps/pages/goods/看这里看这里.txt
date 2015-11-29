@@ -1,0 +1,16 @@
+一，易耗品表中需要添加此操作——修改库存量
+{
+    name: 'id',
+    label: '操作',
+    align: 'center',
+    width: 140,
+    add: false,
+    edit: false,
+    render: function(value) {
+        return "<button type='button' class='btn btn-blue' data-toggle='dialog' data-id='changeStockDialog' " + "data-url='<lms:path/>pages/goods/changeStockDialog.jsp?goods_id='" + value + " data-title='修改库存量' data-mask='true' data-height='260'>修改库存" + "</button>";
+    }
+}
+
+如果选择的是“增加” 则提供一个输入框说明入货源即可；如果为“输出” 则提供一个实验室选择
+
+二，此页面文件夹下存放的是仪器设备以及低值品的相关页面

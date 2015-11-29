@@ -3,6 +3,8 @@ package com.libmanagement.entity;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,7 +31,10 @@ public class StudentUser extends Describertable {
     private String realName;
 
     //当前所在班级
-    private String currentClassId;
+    @OneToOne
+    @JoinColumn(name = "current_class_id")
+    private Classes currentClass;
+
 
     public String getUsername() {
         return username;
@@ -71,11 +76,11 @@ public class StudentUser extends Describertable {
         this.realName = realName;
     }
 
-    public String getCurrentClassId() {
-        return currentClassId;
+    public Classes getCurrentClass() {
+        return currentClass;
     }
 
-    public void setCurrentClassId(String currentClassId) {
-        this.currentClassId = currentClassId;
+    public void setCurrentClass(Classes currentClass) {
+        this.currentClass = currentClass;
     }
 }
