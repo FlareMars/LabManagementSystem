@@ -1,1 +1,9 @@
-out
+*.iml
+out/
+*.png
+.idea/
+*.jpg
+*.gif
+*.jpeg
+*.jpg
+*.jar
