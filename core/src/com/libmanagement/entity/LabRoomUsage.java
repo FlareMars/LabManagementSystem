@@ -33,9 +33,47 @@ public class LabRoomUsage extends Describertable{
     private Integer status;
 
     //ËùÊôÊµÑé¿Î
-    //@OneToOne
-    //@JoinColumn(name = "experiment_lession_id")
-   // private String experimentLessionId;
+    @OneToOne
+    @JoinColumn(name = "experiment_lession_id")
+    private ExperimentLession experimentLession;
 
+    public String getLabRoomId() {
+        return labRoomId;
+    }
 
+    public void setLabRoomId(String labRoomId) {
+        this.labRoomId = labRoomId;
+    }
+
+    public Date getTargetDate() {
+        return targetDate;
+    }
+
+    public void setTargetDate(Date targetDate) {
+        this.targetDate = targetDate;
+    }
+
+    public Integer getTargetTime() {
+        return targetTime;
+    }
+
+    public void setTargetTime(Integer targetTime) {
+        this.targetTime = targetTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public ExperimentLession getExperimentLession() {
+        return experimentLession;
+    }
+
+    public void setExperimentLession(ExperimentLession experimentLession) {
+        this.experimentLession = experimentLession;
+    }
 }

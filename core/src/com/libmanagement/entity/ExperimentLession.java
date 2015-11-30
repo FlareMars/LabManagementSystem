@@ -33,6 +33,17 @@ public class ExperimentLession extends Describertable {
     @JoinColumn(name = "experiment_lession_id")
     private List<ExperimentResult> experimentResultList;
 
+    //实验所在教室名称
+    private String labRoomName;
+
+    public String getLabRoomName() {
+        return labRoomName;
+    }
+
+    public void setLabRoomName(String labRoomName) {
+        this.labRoomName = labRoomName;
+    }
+
     public Date getTargetDate() {
         return targetDate;
     }
