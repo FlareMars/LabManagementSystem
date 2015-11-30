@@ -7,3 +7,5 @@ out/
 *.jpeg
 *.jpg
 lib/
+admin/resources/config.properties
+portal/resources/config.properties
