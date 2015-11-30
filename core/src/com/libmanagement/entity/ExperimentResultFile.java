@@ -2,15 +2,16 @@ package com.libmanagement.entity;
 
 import com.libmanagement.common.entity.Describertable;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  * Created by FlareMars on 2015/11/29
- * 实验课程相关文件，包括教学资源以及学生的成果文件
+ * 学生实验结论文件
  */
-public class ExperimentFile extends Describertable {
-
-    public static final Integer TYPE_TEACHING_RESOURCE = 1;
-    public static final Integer TYPE_STUDENT_FILE = 2;
-
+@Entity
+@Table(name = "lms_experiment_result_file")
+public class ExperimentResultFile extends Describertable {
     //文件名
     private String name;
 
@@ -23,14 +24,8 @@ public class ExperimentFile extends Describertable {
     //文件URL
     private String url;
 
-    //文件大类型
-    private Integer type;
-
     //文件大小
     private Long size;
-
-    //上传者id
-    private String uploaderId;
 
     public String getName() {
         return name;
@@ -64,27 +59,11 @@ public class ExperimentFile extends Describertable {
         this.url = url;
     }
 
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public Long getSize() {
         return size;
     }
 
     public void setSize(Long size) {
         this.size = size;
-    }
-
-    public String getUploaderId() {
-        return uploaderId;
-    }
-
-    public void setUploaderId(String uploaderId) {
-        this.uploaderId = uploaderId;
     }
 }
