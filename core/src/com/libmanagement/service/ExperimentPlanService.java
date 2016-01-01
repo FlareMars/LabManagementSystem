@@ -38,7 +38,20 @@ public class ExperimentPlanService {
         return entity.getId();
     }
 
+    public List<ExperimentPlan> findByClass(String classId) {
+        return experimentPlanRepository.findByClassId(classId);
+    }
+
     private PageRequest buildPageRequest(int pageNumber,int pageSize) {
         return new PageRequest(pageNumber - 1,pageSize,null);
+    }
+
+    public ExperimentPlan findById(String id) {
+        return experimentPlanRepository.findOne(id);
+    }
+
+    public void addBookedNum(ExperimentPlan data) {
+        data.setCurrentNum(data.getCurrentNum()+1);
+        experimentPlanRepository.save(data);
     }
 }

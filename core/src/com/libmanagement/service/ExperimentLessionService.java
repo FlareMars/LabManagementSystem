@@ -44,4 +44,22 @@ public class ExperimentLessionService {
     public ExperimentLession findById(String id) {
         return experimentLessionRepository.findOne(id);
     }
+
+    public void addReceivedNum(String lessionId) {
+        ExperimentLession lession = experimentLessionRepository.findOne(lessionId);
+        int targetNum = lession.getReceivedCount() + 1;
+        if (targetNum <= lession.getTargetCount()) {
+            lession.setReceivedCount(targetNum);
+            experimentLessionRepository.save(lession);
+        }
+    }
+
+    public ExperimentLession findByPlanId(String planId) {
+        List<ExperimentLession> temp = experimentLessionRepository.findByPlanId(planId);
+        if (temp.size() > 0) {
+            return temp.get(0);
+        } else {
+            return null;
+        }
+    }
 }

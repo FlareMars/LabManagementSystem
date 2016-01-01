@@ -3,9 +3,7 @@ package com.libmanagement.portal.rest;
 import com.libmanagement.entity.*;
 import com.libmanagement.portal.web.common.RestBaseBean;
 import com.libmanagement.portal.web.common.Result;
-import com.libmanagement.service.ExperimentLessionService;
-import com.libmanagement.service.ExperimentResultService;
-import com.libmanagement.service.TeachingNoticeService;
+import com.libmanagement.service.*;
 import net.minidev.json.JSONObject;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -41,6 +39,12 @@ public class ExperimentLessionRest extends RestBaseBean {
 
     @Autowired
     private TeachingNoticeService teachingNoticeService;
+
+    @Autowired
+    private StudentExperimentPlanService studentPlanService;
+
+    @Autowired
+    private ExperimentPlanService experimentPlanService;
 
     @RequestMapping("/getList")
     public @ResponseBody
@@ -169,6 +173,35 @@ public class ExperimentLessionRest extends RestBaseBean {
         return result;
     }
 
+    private static final String [] TIMES = {"08:00-11:50","14:00-16:40","19:00-21:00"};
+
+    @RequestMapping("/checkValidLession")
+    public @ResponseBody
+    Result checkValidLession(@RequestParam("studentId")String studentId) {
+        Result result = new Result();
+        result.setMessage("check lession success");
+        result.setStatusCode(200);
+
+        List<StudentExperimentPlan> plans = studentPlanService.findByStudentId(studentId);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("count",plans.size());
+        jsonObject.put("array",plans);
+        result.setData(jsonObject);
+        return result;
+    }
+
+    @RequestMapping("/bookTheExperiment")
+    public @ResponseBody
+    Result bookTheExperiment(@RequestParam("experimentPlanId")String experimentPlanId) {
+        Result result = new Result();
+        result.setStatusCode(200);
+        result.setMessage("book success");
+        StudentExperimentPlan studentPlan = studentPlanService.findById(experimentPlanId);
+        ExperimentPlan parentPlan = experimentPlanService.findById(studentPlan.getParentPlanId());
+        studentPlanService.toBook(studentPlan);
+        experimentPlanService.addBookedNum(parentPlan);
+        return result;
+    }
 
     private class HomeworkBean {
         private String studentId;

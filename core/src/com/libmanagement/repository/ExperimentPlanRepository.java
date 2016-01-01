@@ -17,4 +17,7 @@ public interface ExperimentPlanRepository extends JpaRepository<ExperimentPlan,S
 
     @Query("select e from ExperimentPlan as e where e.teacherId = ?1 and e.date >= ?2 order by e.date,e.time")
     List<ExperimentPlan> getPlans(String teacherId,String today,Pageable pageable);
+
+    @Query("select e from ExperimentPlan as e where e.targetClassId = ?1")
+    List<ExperimentPlan> findByClassId(String classId);
 }
