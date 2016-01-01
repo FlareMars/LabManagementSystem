@@ -75,107 +75,6 @@ public class UserWeb extends AdminWebBean {
         return result;
     }
 
-    @Autowired
-    private LabRoomService labRoomService;
-
-    @RequestMapping("/labroom_page")
-    public String listLabRoom() {
-        return "/pages/user/labroom_list";
-    }
-
-    @RequestMapping("/labroom_list")
-    public @ResponseBody
-    Result listLabRooms() {
-
-        List<LabRoom> labRoomList = labRoomService.listLabRooms();
-        Result result = new Result();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result.setData(mapper.writeValueAsString(labRoomList));
-            return result;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            result.setStatusCode(210);
-        }
-        return result;
-    }
-
-    @Autowired
-    private EquipmentService equipmentService;
-
-    @RequestMapping("/equipment_page")
-    public String listEquipment() {
-        return "/pages/user/equipment_list";
-    }
-
-    @RequestMapping("/equipment_list")
-    public @ResponseBody
-    Result listEquipments() {
-
-        List<Equipment> equipmentList = equipmentService.listEquipments();
-        Result result = new Result();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result.setData(mapper.writeValueAsString(equipmentList));
-            return result;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            result.setStatusCode(210);
-        }
-        return result;
-    }
-
-    @Autowired
-    private ConsumptionGoodsService consumptionGoodsService;
-
-    @RequestMapping("/consumption_goods_page")
-    public String listConsumptionGood() {
-        return "/pages/user/consumption_goods_list";
-    }
-
-    @RequestMapping("/consumption_goods_list")
-    public @ResponseBody
-    Result listConsumptionGoods() {
-
-        List<ConsumptionGoods> consumptionGoodsList = consumptionGoodsService.listConsumptionGoods();
-        Result result = new Result();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result.setData(mapper.writeValueAsString(consumptionGoodsList));
-            return result;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            result.setStatusCode(210);
-        }
-        return result;
-    }
-
-    @Autowired
-    private SystemNoticeService systemNoticeService;
-
-    @RequestMapping("/system_notice_page")
-    public String listSystemNotice() {
-        return "/pages/user/system_notice_list";
-    }
-
-    @RequestMapping("/system_notice_list")
-    public @ResponseBody
-    Result listSystemNotices() {
-
-        List<SystemNotice> systemNoticeList = systemNoticeService.listSystemNotices();
-        Result result = new Result();
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            result.setData(mapper.writeValueAsString(systemNoticeList));
-            return result;
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-            result.setStatusCode(210);
-        }
-        return result;
-    }
-
-
     @RequestMapping("/editdata")
     public @ResponseBody
     Result editData(@RequestParam("json") String json, @RequestParam("type") String type) {
@@ -185,4 +84,15 @@ public class UserWeb extends AdminWebBean {
 
         return result;
     }
+
+    @RequestMapping("/deletedata")
+    public @ResponseBody
+    Result deleteData(@RequestParam("id") String id, @RequestParam("type") String type) {
+        System.out.println(id);
+        System.out.println(type);
+        Result result = new Result(Result.CODE_OK,"test");
+
+        return result;
+    }
+
 }

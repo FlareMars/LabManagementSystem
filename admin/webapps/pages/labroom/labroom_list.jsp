@@ -6,7 +6,7 @@
         showToolbar: true,
         toolbarItem: 'add, edit, cancel, | , save, del',
         local: 'local',
-        dataUrl: '<lms:path/>/user/labroom_list',
+        dataUrl: '<lms:path/>/labroom/labroom_list',
         dataType: 'json',
         sortAll: true,
         filterAll: true,
@@ -70,8 +70,8 @@
                 }
             }
         ],
-        editUrl: '<lms:path/>/user/editdata?type=labroom',
-        delUrl: '<lms:path/>/user/deletedata?type=labroom',
+        editUrl: '<lms:path/>/labroom/editdata?type=labroom',
+        delUrl: '<lms:path/>/labroom/deletedata?type=labroom',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
