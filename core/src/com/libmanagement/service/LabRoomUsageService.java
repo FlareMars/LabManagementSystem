@@ -8,6 +8,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,12 @@ public class LabRoomUsageService {
     private LabRoomUsageRepository labRoomUsageRepository;
 
     public List<LabRoomUsage> findByDate(String labRoomId) {
-        return labRoomUsageRepository.findByLabRoomId(labRoomId,DATE_FORMAT.format(new Date()));
+        try {
+            return labRoomUsageRepository.findByLabRoomId(labRoomId,DATE_FORMAT.parse(DATE_FORMAT.format(new Date())));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String addUsage(LabRoomUsage data) {

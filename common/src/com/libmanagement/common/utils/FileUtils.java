@@ -16,23 +16,15 @@ public class FileUtils {
 
     public static final String SEPARATOR = "/";
 
-    public static String saveFile(byte[] data,String fileName) {
+    public static String saveFile(byte[] data,String fileName) throws IOException{
 
         String path = FILE_STORY_DIR + fileName;
         File file = new File(path);
         BufferedOutputStream stream = null;
-        try {
-            stream = new BufferedOutputStream(new FileOutputStream(file));
-            stream.write(data);
-            stream.close();
+        stream = new BufferedOutputStream(new FileOutputStream(file));
+        stream.write(data);
+        stream.close();
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            path = "";
-        } catch (IOException e) {
-            e.printStackTrace();
-            path = "";
-        }
         return path;
     }
 

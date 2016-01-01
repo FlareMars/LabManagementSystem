@@ -1,5 +1,6 @@
 package com.libmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.Entity;
@@ -22,13 +23,8 @@ public class SystemNotice extends Describertable {
 
     //操作员
     @ManyToOne
+    @JsonIgnore
     private User operator;
-
-    //创建时间 隐含在基类Describertable
-    //createTime
-
-    //附近文件列表，有时间再考虑做不做
-    //List<LMSFile> attachments
 
     public String getTitle() {
         return title;

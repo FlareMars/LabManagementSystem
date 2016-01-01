@@ -20,6 +20,9 @@ public interface StudentUserRepository extends JpaRepository<StudentUser, String
     @Query("select t from StudentUser as t")
     List<StudentUser> listStudents();
 
-    @Query("select t from StudentUser as t where t.username=?1")
-    List<StudentUser> findByUsername(String username);
+    @Query("select count(*) from StudentUser as s where s.currentClass.id = ?1")
+    Integer studentNumInClass(String classId);
+
+    @Query("select new StudentUser(id) from StudentUser as s where s.currentClass.id = ?1")
+    List<StudentUser> listByClassId(String classId);
 }

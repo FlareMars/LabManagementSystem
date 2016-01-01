@@ -22,9 +22,11 @@ public class AcademyService {
 
     public Academy findByName(String name) {
         List<Academy> temp = academyRepository.findByName(name);
+        System.out.println(name);
         if (temp.size() > 0) {
             return temp.get(0);
         } else {
+            System.out.println("查找学院失败");
             return null;
         }
     }

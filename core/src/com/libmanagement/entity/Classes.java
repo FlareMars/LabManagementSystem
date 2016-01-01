@@ -25,6 +25,15 @@ public class Classes extends EntityUUID {
     @JoinColumn(name = "student_id")
     private List<StudentUser> classmates;
 
+    public Classes() {
+
+    }
+
+    public Classes(String id,String name) {
+        setId(id);
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

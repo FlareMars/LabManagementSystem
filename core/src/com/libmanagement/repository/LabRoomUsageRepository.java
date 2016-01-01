@@ -4,6 +4,7 @@ import com.libmanagement.entity.LabRoomUsage;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,5 +13,5 @@ import java.util.List;
 public interface LabRoomUsageRepository extends JpaRepository<LabRoomUsage,String> {
 
     @Query("select l from LabRoomUsage as l where l.labRoomId = ?1 and l.targetDate >= ?2 order by targetDate,targetTime")
-    List<LabRoomUsage> findByLabRoomId(String labRoomId,String today);
+    List<LabRoomUsage> findByLabRoomId(String labRoomId,Date today);
 }

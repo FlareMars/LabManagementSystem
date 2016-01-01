@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ClassesRepository extends JpaRepository<Classes,String> {
 
-    @Query("select id,name from Classes as c where c.academyId = ?1")
+    @Query("select new Classes(id,name) from Classes as c where c.academyId = ?1")
     List<Classes> getClassesByAcademy(String academyId);
 }

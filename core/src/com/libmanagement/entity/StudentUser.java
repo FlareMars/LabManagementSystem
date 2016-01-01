@@ -35,6 +35,14 @@ public class StudentUser extends Describertable {
     @JoinColumn(name = "current_class_id")
     private Classes currentClass;
 
+    public StudentUser() {
+
+    }
+
+    public StudentUser(String id) {
+        setId(id);
+    }
+
 
 
     public String getUsername() {

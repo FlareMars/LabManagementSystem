@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,15 +33,24 @@ public class AnnouncementRest extends RestBaseBean {
     Result getNormalAnnouncements(@RequestParam("pageNum") Integer requestPageNum) {
         Result result = new Result();
         result.setStatusCode(200);
-        result.setMessage("��ȡ�ɹ�");
+        result.setMessage("获取成功");
 
         try {
             Long count = systemNoticeService.getSystemNoticeSize();
             List<SystemNotice> list = systemNoticeService.getSystemNotices(requestPageNum);
+            List<SystemNoticeBean> dataList = new ArrayList<>(list.size());
+            for (SystemNotice temp : list) {
+                SystemNoticeBean bean = new SystemNoticeBean();
+                bean.title = temp.getTitle();
+                bean.content = temp.getContent();
+                bean.createTimeStr = temp.getCreateTimeStr();
+                bean.operator = "管理员:" + temp.getOperator().getUserName();
+                dataList.add(bean);
+            }
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("count",count);
             jsonObject.put("currentPage",requestPageNum);
-            jsonObject.put("array",list);
+            jsonObject.put("array",dataList);
             result.setData(jsonObject);
         } catch (LMSServerException e) {
             result.setStatusCode(210);
@@ -48,5 +58,47 @@ public class AnnouncementRest extends RestBaseBean {
         }
 
         return result;
+    }
+
+    private class SystemNoticeBean {
+        private String title;
+
+        private String content;
+
+        private String operator;
+
+        private String createTimeStr;
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public String getOperator() {
+            return operator;
+        }
+
+        public void setOperator(String operator) {
+            this.operator = operator;
+        }
+
+        public String getCreateTimeStr() {
+            return createTimeStr;
+        }
+
+        public void setCreateTimeStr(String createTimeStr) {
+            this.createTimeStr = createTimeStr;
+        }
     }
 }
