@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by FlareMars on 2016/1/1
  */
@@ -20,5 +22,9 @@ public class TeachingNoticeService {
     public String addNotice(TeachingNotice data) {
         teachingNoticeRepository.save(data);
         return data.getId();
+    }
+
+    public List<TeachingNotice> findByTargetId(String targetId,Integer toWhat) {
+        return teachingNoticeRepository.findByTargetId(targetId,toWhat);
     }
 }

@@ -62,4 +62,8 @@ public class StudentUserService {
     public List<StudentUser> listByClassId(String classId) {
         return studentUserRepository.listByClassId(classId);
     }
+
+    public StudentUser findById(String id) {
+        return studentUserRepository.findOne(id);
+    }
 }

@@ -3,12 +3,10 @@ package com.libmanagement.portal.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.libmanagement.common.utils.FileUtils;
-import com.libmanagement.entity.ExperimentResource;
-import com.libmanagement.entity.ExperimentResult;
-import com.libmanagement.entity.ExperimentResultFile;
-import com.libmanagement.entity.StudentUser;
+import com.libmanagement.entity.*;
 import com.libmanagement.portal.web.common.RestBaseBean;
 import com.libmanagement.portal.web.common.Result;
+import com.libmanagement.service.ExperimentLessionService;
 import com.libmanagement.service.ExperimentResourceService;
 import com.libmanagement.service.ExperimentResultService;
 import net.minidev.json.JSONObject;
@@ -47,6 +45,9 @@ public class FileRest extends RestBaseBean {
 
     @Autowired
     private ExperimentResultService experimentResultService;
+
+    @Autowired
+    private ExperimentLessionService lessionService;
 
     @RequestMapping("/teacherUpload")
     public @ResponseBody
@@ -98,7 +99,7 @@ public class FileRest extends RestBaseBean {
     public @ResponseBody
     Result uploadHomework(@RequestParam(value = "file") MultipartFile sourceFile,
                       @RequestParam(value = "fileName" ) String fileName,
-                      @RequestParam(value = "lessionId") String id,
+                      @RequestParam(value = "lessionId") String planId,
                       @RequestParam(value = "userId") String studentId,
                       @RequestParam(value = "fileType") Integer fileType) {
         Result result = new Result();
@@ -126,6 +127,8 @@ public class FileRest extends RestBaseBean {
         }
 
         if (!path.equals("")) {
+            String id = lessionService.findByPlanId(planId).getId();
+            System.out.println(id);
             List<ExperimentResult> temp = experimentResultService.findByLessionAndStudent(id,studentId);
             ExperimentResult resultContainer;
             if (temp.size() > 0) {
@@ -147,6 +150,9 @@ public class FileRest extends RestBaseBean {
             resultContainer.setResultFile(resultFile);
 
             experimentResultService.addHomework(resultContainer);
+
+            //课程作业接收数量增加(限制每个同学只能够上传一次作业)
+            lessionService.addReceivedNum(id);
             result.put("dataId",resultContainer.getId());
         }
 

@@ -44,6 +44,16 @@ public class ExperimentLession extends Describertable {
 
     private Boolean isCompleted = false;
 
+    private String experimentPlanId;
+
+    public String getExperimentPlanId() {
+        return experimentPlanId;
+    }
+
+    public void setExperimentPlanId(String experimentPlanId) {
+        this.experimentPlanId = experimentPlanId;
+    }
+
     public String getTeacherId() {
         return teacherId;
     }

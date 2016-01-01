@@ -20,4 +20,8 @@ public class TeacherUserService {
     public List<TeacherUser> listTeachers() {
         return teacherUserRepository.listTeachers();
     }
+
+    public TeacherUser findById(String id) {
+        return teacherUserRepository.findOne(id);
+    }
 }

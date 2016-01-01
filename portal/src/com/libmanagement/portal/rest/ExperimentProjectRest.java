@@ -54,6 +54,12 @@ public class ExperimentProjectRest extends RestBaseBean {
     @Autowired
     private StudentUserService studentUserService;
 
+    @Autowired
+    private TeacherUserService teacherUserService;
+
+    @Autowired
+    private StudentExperimentPlanService studentPlanService;
+
     @RequestMapping("/getListByTeacherId")
     public @ResponseBody
     Result getNormalAnnouncements(@RequestParam("userId") String teacherId,
@@ -138,6 +144,17 @@ public class ExperimentProjectRest extends RestBaseBean {
         return result;
     }
 
+    @RequestMapping("/getExperimentById")
+    public @ResponseBody
+    Result getExperimentById(@RequestParam("experimentId")String experimentId) {
+        Result result = new Result();
+        result.setMessage("get success");
+        result.setStatusCode(200);
+        ExperimentProject experimentProject = experimentProjectService.findById(experimentId);
+        result.setData(experimentProject);
+        return result;
+    }
+
     private class ExperimentResourceBean {
         private String name;
 
@@ -204,6 +221,8 @@ public class ExperimentProjectRest extends RestBaseBean {
         return result;
     }
 
+    private static final String [] TIMES = {"08:00-11:50","14:00-16:40","19:00-21:00"};
+
     @RequestMapping("/createPlan")
     public @ResponseBody
     Result createPlan(@RequestParam("experimentId")String experimentId,
@@ -246,18 +265,36 @@ public class ExperimentProjectRest extends RestBaseBean {
                 experimentLession.setReceivedCount(0);
                 experimentLession.setTargetCount(totalStudentSize);
                 experimentLession.setTeacherId(teacherId);
+                experimentLession.setExperimentPlanId(temp.getId());
                 experimentLessionService.addLession(experimentLession);
 
                 //生成所有学生的Result容器
                 List<ExperimentResult> results = new ArrayList<>();
+                //生成所有学生的预约通道
+                List<StudentExperimentPlan> studentPlanList = new ArrayList<>();
+
                 ExperimentResult tempResult;
+                StudentExperimentPlan tempStudentPlan;
                 for (StudentUser student : studentList) {
                     tempResult = new ExperimentResult();
                     tempResult.setTargetStudent(student);
                     tempResult.setExperimentLessionId(experimentLession.getId());
                     results.add(tempResult);
+
+                    tempStudentPlan = new StudentExperimentPlan();
+                    tempStudentPlan.setExperimentId(experimentId);
+                    tempStudentPlan.setExperimentName(projectEntity.getName());
+                    tempStudentPlan.setTeacher(teacherUserService.findById(teacherId).getRealName());
+                    tempStudentPlan.setLabRoom(labRoom.getDepartment() + labRoom.getRoomNumber());
+                    tempStudentPlan.setDate(date + " " + TIMES[time]);
+                    tempStudentPlan.setIsBooked(false);
+                    tempStudentPlan.setOwner(student.getId());
+                    tempStudentPlan.setParentPlanId(temp.getId());
+                    studentPlanList.add(tempStudentPlan);
                 }
                 experimentResultService.saveAll(results);
+                studentPlanService.saveAll(studentPlanList);
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }

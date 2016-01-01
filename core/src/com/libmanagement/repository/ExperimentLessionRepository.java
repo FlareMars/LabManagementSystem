@@ -19,4 +19,7 @@ public interface ExperimentLessionRepository extends JpaRepository<ExperimentLes
 
     @Query("select e from ExperimentLession as e where e.teacherId = ?1 and e.targetDate <= ?2")
     List<ExperimentLession> listByTeacherId(String teacherId,Date today,Pageable pageable);
+
+    @Query("select e from ExperimentLession as e where e.experimentPlanId = ?1")
+    List<ExperimentLession> findByPlanId(String planId);
 }
