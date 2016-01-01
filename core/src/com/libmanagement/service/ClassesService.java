@@ -41,4 +41,7 @@ public class ClassesService {
         return classesRepository.findOne(id);
     }
 
+    public List<Classes> listAll() {
+        return classesRepository.findAll();
+    }
 }
