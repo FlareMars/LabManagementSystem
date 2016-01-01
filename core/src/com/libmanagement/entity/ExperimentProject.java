@@ -1,5 +1,6 @@
 package com.libmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class ExperimentProject extends Describertable {
 
     //任课老师
     @OneToOne
+    @JsonIgnore
     private TeacherUser teacher;
 
     //实验类型
@@ -29,6 +31,7 @@ public class ExperimentProject extends Describertable {
     //实验教学资源
     @OneToMany
     @JoinColumn(name = "experiment_id")
+    @JsonIgnore
     private List<ExperimentResource> teachingResources;
 
     public String getName() {

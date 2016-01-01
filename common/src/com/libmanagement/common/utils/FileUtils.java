@@ -12,13 +12,13 @@ public class FileUtils {
 
     private static Logger logger = Logger.getLogger(FileUtils.class);
 
-    private static final String FILE_STORY_DIR = "H:\\dms_files\\";
+    private static final String FILE_STORY_DIR = "H:\\LMS_FILES\\";
 
     public static final String SEPARATOR = "/";
 
     public static String saveFile(byte[] data,String fileName) {
 
-        String path = FILE_STORY_DIR + fileName + "-uploaded";
+        String path = FILE_STORY_DIR + fileName;
         File file = new File(path);
         BufferedOutputStream stream = null;
         try {

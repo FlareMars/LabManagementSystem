@@ -28,6 +28,10 @@ public class ExperimentLession extends Describertable {
     @OneToOne
     private ExperimentProject experimentProject;
 
+    private Integer receivedCount;
+
+    private Integer targetCount;
+
     //学生实验成果集合
     @OneToMany
     @JoinColumn(name = "experiment_lession_id")
@@ -35,6 +39,42 @@ public class ExperimentLession extends Describertable {
 
     //实验所在教室名称
     private String labRoomName;
+
+    private String teacherId;
+
+    private Boolean isCompleted = false;
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public Boolean getIsCompleted() {
+        return isCompleted;
+    }
+
+    public void setIsCompleted(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    public Integer getReceivedCount() {
+        return receivedCount;
+    }
+
+    public void setReceivedCount(Integer receivedCount) {
+        this.receivedCount = receivedCount;
+    }
+
+    public Integer getTargetCount() {
+        return targetCount;
+    }
+
+    public void setTargetCount(Integer targetCount) {
+        this.targetCount = targetCount;
+    }
 
     public String getLabRoomName() {
         return labRoomName;

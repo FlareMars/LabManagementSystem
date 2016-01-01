@@ -25,7 +25,7 @@ public class ExperimentResult extends Describertable {
     @OneToOne
     private ExperimentResultFile resultFile;
 
-    private Float score = 0.0f;
+    private Integer score = 0;
 
     public StudentUser getTargetStudent() {
         return targetStudent;
@@ -51,11 +51,11 @@ public class ExperimentResult extends Describertable {
         this.resultFile = resultFile;
     }
 
-    public Float getScore() {
+    public Integer getScore() {
         return score;
     }
 
-    public void setScore(Float score) {
+    public void setScore(Integer score) {
         this.score = score;
     }
 }
