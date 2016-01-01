@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface ConsumptionGoodsRepository extends JpaRepository<ConsumptionGoods, String> {
 
+
     @Query("select t from ConsumptionGoods as t")
     Page<ConsumptionGoods> listConsumptionGoods(Pageable page);
 

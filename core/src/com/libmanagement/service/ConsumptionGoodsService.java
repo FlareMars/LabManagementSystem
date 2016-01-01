@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 public class ConsumptionGoodsService {
 
+
     @Autowired
     private ConsumptionGoodsRepository consumptionGoodsrepository;
 

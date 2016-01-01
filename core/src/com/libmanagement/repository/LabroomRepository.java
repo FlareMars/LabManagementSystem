@@ -13,6 +13,9 @@ import java.util.List;
  */
 public interface LabRoomRepository extends JpaRepository<LabRoom, String> {
 
+    @Query("select new LabRoom(id,department,roomNumber,manager) from LabRoom as l where l.type = ?1")
+    List<LabRoom> getByType(Integer type);
+
     @Query("select t from LabRoom as t")
     Page<LabRoom> listLabRooms(Pageable page);
 

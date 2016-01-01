@@ -17,6 +17,7 @@ import java.util.List;
 public class LabRoomService {
     private Log logger = LogFactory.getLog(LabRoomService.class);
 
+
     @Autowired
     private LabRoomRepository labRoomRepository;
 

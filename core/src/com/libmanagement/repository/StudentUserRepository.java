@@ -25,4 +25,7 @@ public interface StudentUserRepository extends JpaRepository<StudentUser, String
 
     @Query("select new StudentUser(id) from StudentUser as s where s.currentClass.id = ?1")
     List<StudentUser> listByClassId(String classId);
+
+    @Query("select t from StudentUser as t where t.username = ?1")
+    List<StudentUser> findByUsername(String username);
 }

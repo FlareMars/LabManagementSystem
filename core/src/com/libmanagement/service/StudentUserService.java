@@ -54,4 +54,12 @@ public class StudentUserService {
     public boolean isValidStudent (StudentUser temp) {
         return true;
     }
+
+    public Integer studentNumInClass(String classId) {
+        return studentUserRepository.studentNumInClass(classId);
+    }
+
+    public List<StudentUser> listByClassId(String classId) {
+        return studentUserRepository.listByClassId(classId);
+    }
 }

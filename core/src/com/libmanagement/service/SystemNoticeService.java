@@ -64,4 +64,8 @@ public class SystemNoticeService {
     public boolean isValidSystemNotice (SystemNotice temp) {
         return true;
     }
+
+    public List<SystemNotice> listSystemNotices() {
+        return systemNoticeRepository.findAll();
+    }
 }
