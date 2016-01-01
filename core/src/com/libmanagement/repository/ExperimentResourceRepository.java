@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface ExperimentResourceRepository extends JpaRepository<ExperimentResource,String> {
 
-    @Query("select id,name,e.size,experimentId from ExperimentResource as e where e.experimentId = ?1")
+    @Query("select new ExperimentResource(id,name,e.size,experimentId) from ExperimentResource as e where e.experimentId = ?1")
     List<ExperimentResource> getByExperimentId(String experimentId);
 }

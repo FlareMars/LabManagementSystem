@@ -53,6 +53,17 @@ public class LabRoom extends Describertable {
     @JsonIgnore
     private List<LabRoomConsumptionGoods> consumptionGoodsList;
 
+    public LabRoom() {
+
+    }
+
+    public LabRoom(String id,String department,String roomNumber,User manager) {
+        setId(id);
+        this.department = department;
+        this.roomNumber = roomNumber;
+        this.manager = manager;
+    }
+
     public String getDepartment() {
         return department;
     }

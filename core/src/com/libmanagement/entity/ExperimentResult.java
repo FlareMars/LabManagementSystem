@@ -1,6 +1,8 @@
 package com.libmanagement.entity;
 
 import com.libmanagement.common.entity.Describertable;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,6 +25,7 @@ public class ExperimentResult extends Describertable {
     private String experimentLessionId;
 
     @OneToOne
+    @Cascade(CascadeType.ALL)
     private ExperimentResultFile resultFile;
 
     private Integer score = 0;

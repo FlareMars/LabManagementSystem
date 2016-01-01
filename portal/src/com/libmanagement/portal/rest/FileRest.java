@@ -28,12 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Created by FlareMars on 2015/10/21
@@ -160,6 +156,8 @@ public class FileRest extends RestBaseBean {
     @RequestMapping(value = "/downloadResource/{fileId}")
     public ResponseEntity<byte[]> downloadResource(@PathVariable String fileId) {
         ExperimentResource file = experimentResourceService.findById(fileId);
+        System.out.println(file.getPath());
+
         HttpHeaders headers = new HttpHeaders();
 
         String fileName = "";
@@ -189,6 +187,7 @@ public class FileRest extends RestBaseBean {
         String fileName = "";
         try {
             fileName = new String(file.getName().getBytes("UTF-8"), "iso-8859-1");
+            System.out.println(fileName);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

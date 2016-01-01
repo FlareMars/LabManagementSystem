@@ -51,7 +51,10 @@ public class ExperimentProjectRest extends RestBaseBean {
     @Autowired
     private ExperimentResultService experimentResultService;
 
-    @RequestMapping("/normal")
+    @Autowired
+    private StudentUserService studentUserService;
+
+    @RequestMapping("/getListByTeacherId")
     public @ResponseBody
     Result getNormalAnnouncements(@RequestParam("userId") String teacherId,
             @RequestParam("pageNum") Integer requestPageNum) {
@@ -113,13 +116,68 @@ public class ExperimentProjectRest extends RestBaseBean {
 
         try {
             List<ExperimentResource> list = experimentProjectService.getExperimentResources(id);
-            result.setData(list);
+            List<ExperimentResourceBean> dataList = new ArrayList<>(list.size());
+
+            for (ExperimentResource temp : list) {
+                ExperimentResourceBean bean = new ExperimentResourceBean();
+                bean.name = temp.getName();
+                bean.experimentId = temp.getExpeirmentId();
+                bean.id = temp.getId();
+                bean.size = temp.getSize();
+                dataList.add(bean);
+            }
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("count",list.size());
+            jsonObject.put("array",dataList);
+            result.setData(jsonObject);
         } catch (LMSServerException e) {
 
             result.setStatusCode(210);
             result.setMessage(e.getMessage());
         }
         return result;
+    }
+
+    private class ExperimentResourceBean {
+        private String name;
+
+        private String experimentId;
+
+        private String id;
+
+        private Long size;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getExperimentId() {
+            return experimentId;
+        }
+
+        public void setExperimentId(String experimentId) {
+            this.experimentId = experimentId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public Long getSize() {
+            return size;
+        }
+
+        public void setSize(Long size) {
+            this.size = size;
+        }
     }
 
     @RequestMapping("/getPlans")
@@ -161,10 +219,12 @@ public class ExperimentProjectRest extends RestBaseBean {
         try {
             ExperimentPlan temp = new ExperimentPlan();
             Classes targetClass = classesService.findById(classId);
-            List<StudentUser> studentList = targetClass.getClassmates();
-            Integer totalStudentSize = studentList.size();
+            List<StudentUser> studentList = studentUserService.listByClassId(classId);
+            Integer totalStudentSize = studentUserService.studentNumInClass(classId);
             temp.setTotalNum(totalStudentSize);
             temp.setCurrentNum(0);
+            temp.setTargetClassId(targetClass.getId());
+            temp.setTargetClassName(targetClass.getName());
             temp.setDate(date);
             ExperimentProject projectEntity = experimentProjectService.findById(experimentId);
             temp.setExperimentId(experimentId);
@@ -195,6 +255,7 @@ public class ExperimentProjectRest extends RestBaseBean {
                     tempResult = new ExperimentResult();
                     tempResult.setTargetStudent(student);
                     tempResult.setExperimentLessionId(experimentLession.getId());
+                    results.add(tempResult);
                 }
                 experimentResultService.saveAll(results);
             } catch (ParseException e) {

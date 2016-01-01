@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +35,13 @@ public class ClassesRest extends RestBaseBean {
     Result getClasses(@RequestParam("academy")String academyName) {
         Result result = new Result();
         result.setStatusCode(200);
-        result.setMessage("获取班级列表成功");
+        result.setMessage("鑾峰彇鐝骇鍒楄〃鎴愬姛");
 
+        try {
+            academyName = URLDecoder.decode(academyName,"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         List<Classes> list = classesService.getClassesByAcademy(academyName);
         Integer count = list.size();
         JSONObject jsonObject = new JSONObject();

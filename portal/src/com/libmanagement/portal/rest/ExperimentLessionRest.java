@@ -25,7 +25,7 @@ import java.util.Locale;
  * Created by FlareMars on 2016/1/1
  */
 @Controller
-@RequestMapping("/leesion")
+@RequestMapping("/lession")
 public class ExperimentLessionRest extends RestBaseBean {
     private Log logger = LogFactory.getLog(ExperimentLessionRest.class);
 

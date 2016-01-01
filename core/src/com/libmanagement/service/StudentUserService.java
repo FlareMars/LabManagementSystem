@@ -2,6 +2,7 @@ package com.libmanagement.service;
 
 import com.libmanagement.entity.StudentUser;
 import com.libmanagement.entity.TeacherUser;
+import com.libmanagement.repository.StudentUserRepository;
 import com.libmanagement.repository.TeacherUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,17 @@ import java.util.List;
 public class StudentUserService {
 
     @Autowired
-    private StudentUserService studentUserService;
+    private StudentUserRepository studentUserRepository;
 
     public List<StudentUser> listStudents() {
-        return studentUserService.listStudents();
+        return studentUserRepository.listStudents();
+    }
+
+    public Integer studentNumInClass(String classId) {
+        return studentUserRepository.studentNumInClass(classId);
+    }
+
+    public List<StudentUser> listByClassId(String classId) {
+        return studentUserRepository.listByClassId(classId);
     }
 }

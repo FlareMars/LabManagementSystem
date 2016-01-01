@@ -36,6 +36,17 @@ public class ExperimentResource extends Describertable {
     @Column(name = "experiment_id")
     private String experimentId;
 
+    public ExperimentResource() {
+
+    }
+
+    public ExperimentResource(String id,String name, Long size, String experimentId) {
+        this.setId(id);
+        this.name = name;
+        this.size = size;
+        this.experimentId = experimentId;
+    }
+
     public String getName() {
         return name;
     }
