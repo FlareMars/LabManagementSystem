@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +48,7 @@ public class ExperimentLessionRest extends RestBaseBean {
                             @RequestParam("userId")String teacherId) {
         Result result = new Result();
         result.setStatusCode(200);
-        result.setMessage("»ñÈ¡¿ÉÆÀ·Ö¿Î³ÌÁĞ±í³É¹¦");
+        result.setMessage("è·å–å¯è¯„åˆ†è¯¾ç¨‹åˆ—è¡¨æˆåŠŸ");
 
         Long count = experimentLessionService.countLessions(teacherId);
         List<ExperimentLession> list = experimentLessionService.listLessions(teacherId,requestPageNum);
@@ -78,7 +80,7 @@ public class ExperimentLessionRest extends RestBaseBean {
     Result getHomeworks(@RequestParam("lessionId")String lessionId) {
         Result result = new Result();
         result.setStatusCode(200);
-        result.setMessage("»ñÈ¡×÷ÒµÁĞ±í³É¹¦");
+        result.setMessage("è·å–ä½œä¸šåˆ—è¡¨æˆåŠŸ");
 
         ExperimentLession lession = experimentLessionService.findById(lessionId);
         List<ExperimentResult> homeworkList = lession.getExperimentResultList();
@@ -117,7 +119,7 @@ public class ExperimentLessionRest extends RestBaseBean {
                                  @RequestParam("score")Integer score,
                                     @RequestParam("teacherId")String teacherId) {
         Result result = new Result();
-        result.setMessage("ÆÀ·Ö³É¹¦");
+        result.setMessage("è¯„åˆ†æˆåŠŸ");
         result.setStatusCode(200);
 
         ExperimentResult experimentResult = experimentResultService.findById(homeworkId);
@@ -148,15 +150,19 @@ public class ExperimentLessionRest extends RestBaseBean {
                                                 @RequestParam("sender")String teacherId) {
         Result result = new Result();
         result.setStatusCode(200);
-        result.setMessage("·¢³ö½ÌÑ§¹«¸æ³É¹¦");
+        result.setMessage("å‘å‡ºæ•™å­¦å…¬å‘ŠæˆåŠŸ");
 
         TeachingNotice teachingNotice = new TeachingNotice();
         TeacherUser teacherUser = new TeacherUser();
         teacherUser.setId(teacherId);
         teachingNotice.setSender(teacherUser);
         teachingNotice.setSendToWhat(TeachingNotice.TO_CLASS);
-        teachingNotice.setTitle(title);
-        teachingNotice.setContent(content);
+        try {
+            teachingNotice.setTitle(new String(title.getBytes("ISO-8859-1"),"utf-8"));
+            teachingNotice.setContent(new String(content.getBytes("ISO-8859-1"),"utf-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         teachingNotice.setTargetId(classId);
         teachingNoticeService.addNotice(teachingNotice);
 
