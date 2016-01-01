@@ -30,7 +30,7 @@ public class LabRoomService {
     }
 
     public List<LabRoom> listLabRooms() {
-        return labRoomRepository.listLabRooms();
+        return labRoomRepository.findAll();
     }
 
     public String addLabRoom(LabRoom temp) {
