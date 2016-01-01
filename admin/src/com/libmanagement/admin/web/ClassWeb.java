@@ -44,5 +44,4 @@ public class ClassWeb extends AdminWebBean {
         System.out.println(list);
         return list;
     }
-
 }
