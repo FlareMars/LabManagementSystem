@@ -21,8 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by FlareMars on 2015/11/28
@@ -37,12 +36,15 @@ public class ClassWeb extends AdminWebBean {
     private ClassesService classesService;
 
     @RequestMapping("/list_all_classes")
-    public @ResponseBody List<Classes> listAllClasses(){
+    public @ResponseBody List<Map<String,String>> listAllClasses(){
         List<Classes> list = classesService.listAllClasses();
-        StringBuilder sb = new StringBuilder("[\n");
-        System.out.println("Here");
-        System.out.println(list);
-        return list;
+        List<Map<String,String>> beanList = new ArrayList<>(list.size());
+        for (Classes temp : list) {
+            Map<String,String> bean = new HashMap<>();
+            bean.put(temp.getId(),temp.getName());
+            beanList.add(bean);
+        }
+        return beanList;
     }
 
 }
