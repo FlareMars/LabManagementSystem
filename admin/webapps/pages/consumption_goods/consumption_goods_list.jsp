@@ -2,61 +2,51 @@
 <%@ taglib prefix="lms" uri="/lms-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-    $('#equipments-datagrid').datagrid({
+    $('#consumption-goods-datagrid').datagrid({
         showToolbar: true,
         toolbarItem: 'add, edit, cancel, | , save, del',
         local: 'local',
-        dataUrl: '<lms:path/>/user/equipment_list',
+        dataUrl: '<lms:path/>/consumption_goods/consumption_goods_list',
         dataType: 'json',
         sortAll: true,
         filterAll: true,
         columns: [
             {
                 name: 'name',
-                label: '设备名字',
+                label: '名字',
                 align: 'center',
                 width: 100
             },
             {
                 name: 'model',
-                label: '设备型号',
+                label: '型号',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'number',
-                label: '设备编号',
+                name: 'information',
+                label: '额外信息',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'function',
-                label: '设备功能简介',
+                name: 'totalStock',
+                label: '库存总量',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'labRoom',
-                label: '所在位置',
+                name: 'usageList',
+                label: '库存情况列表',
                 align: 'center',
                 width: 140,
                 render: function(value){
                     return value.name;
                 }
-            },
-            {
-                name: 'usages',
-                label: '设备使用情况',
-                align: 'center',
-                width: 100,
-                render: function(value) {
-                    return value.name;
-                }
-
             }
         ],
-        editUrl: '<lms:path/>/user/editdata?type=equipment',
-        delUrl: '<lms:path/>/user/deletedata?type=equipment',
+        editUrl: '<lms:path/>/consumption_goods/editdata?type=consumption_goods',
+        delUrl: '<lms:path/>/consumption_goods/deletedata?type=consumption_goods',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -71,7 +61,7 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-    <table id="equipments-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
+    <table id="consumption-goods-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
     </table>
 </div>
 

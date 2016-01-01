@@ -2,42 +2,30 @@
 <%@ taglib prefix="lms" uri="/lms-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-    $('#consumption-goods-datagrid').datagrid({
+    $('#system_notices-datagrid').datagrid({
         showToolbar: true,
         toolbarItem: 'add, edit, cancel, | , save, del',
         local: 'local',
-        dataUrl: '<lms:path/>/user/consumption_goods_list',
+        dataUrl: '<lms:path/>/system_notice/system_notice_list',
         dataType: 'json',
         sortAll: true,
         filterAll: true,
         columns: [
             {
-                name: 'name',
-                label: '名字',
+                name: 'title',
+                label: '公告标题',
                 align: 'center',
                 width: 100
             },
             {
-                name: 'model',
-                label: '型号',
+                name: 'content',
+                label: '公告内容',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'information',
-                label: '额外信息',
-                align: 'center',
-                width: 140
-            },
-            {
-                name: 'totalStock',
-                label: '库存总量',
-                align: 'center',
-                width: 140
-            },
-            {
-                name: 'usageList',
-                label: '库存情况列表',
+                name: 'operator',
+                label: '操作员',
                 align: 'center',
                 width: 140,
                 render: function(value){
@@ -45,8 +33,8 @@
                 }
             }
         ],
-        editUrl: '<lms:path/>/user/editdata?type=consumption_goods',
-        delUrl: '<lms:path/>/user/deletedata?type=consumption_goods',
+        editUrl: '<lms:path/>/system_notice/editdata?type=system_notice',
+        delUrl: '<lms:path/>/system_notice/deletedata?type=system_notice',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -61,7 +49,7 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-    <table id="consumption-goods-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
+    <table id="system_notices-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
     </table>
 </div>
 

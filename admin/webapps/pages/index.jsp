@@ -256,10 +256,10 @@
 							<ul class="menu-items" data-faicon="hand-o-up">
 								<li><a href="<lms:path/>/user/teacher_page" data-options="{id:'form-demo', faicon:'th-large'}">老师列表</a></li>
 								<li><a href="<lms:path/>/user/student_page" data-options="{id:'form-demo', faicon:'th-large'}">学生列表</a></li>
-								<li><a href="<lms:path/>/user/labroom_page" data-options="{id:'form-demo', faicon:'th-large'}">实验室列表</a></li>
-								<li><a href="<lms:path/>/user/equipment_page" data-options="{id:'form-demo', faicon:'th-large'}">设备列表</a></li>
-								<li><a href="<lms:path/>/user/consumption_goods_page" data-options="{id:'form-demo', faicon:'th-large'}">消耗品列表</a></li>
-								<li><a href="<lms:path/>/user/system_notice_page" data-options="{id:'form-demo', faicon:'th-large'}">系统公告列表</a></li>
+								<li><a href="<lms:path/>/labroom/labroom_page" data-options="{id:'form-demo', faicon:'th-large'}">实验室列表</a></li>
+								<li><a href="<lms:path/>/equipment/equipment_page" data-options="{id:'form-demo', faicon:'th-large'}">设备列表</a></li>
+								<li><a href="<lms:path/>/consumption_goods/consumption_goods_page" data-options="{id:'form-demo', faicon:'th-large'}">消耗品列表</a></li>
+								<li><a href="<lms:path/>/system_notice/system_notice_page" data-options="{id:'form-demo', faicon:'th-large'}">系统公告列表</a></li>
 							</ul>
 						</div>
 					</li>
