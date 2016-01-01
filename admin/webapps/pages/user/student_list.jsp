@@ -46,6 +46,10 @@
                 label: '所在班级',
                 align: 'center',
                 width: 100,
+                type: 'select',
+                items: function() {
+                    return $.getJSON('<lms:path/>/classes/list_all_classes');
+                },
                 render: function(value) {
                     return value.name;
                 }

@@ -33,6 +33,10 @@ public class ClassesService {
         }
     }
 
+    public List<Classes> listAllClasses(){
+        return classesRepository.findAll();
+    }
+
     public Classes findById(String id) {
         return classesRepository.findOne(id);
     }

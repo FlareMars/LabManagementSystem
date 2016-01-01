@@ -6,6 +6,7 @@ import com.libmanagement.admin.common.AdminWebBean;
 import com.libmanagement.admin.common.Result;
 import com.libmanagement.entity.*;
 import com.libmanagement.service.*;
+import net.sf.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -75,15 +78,39 @@ public class UserWeb extends AdminWebBean {
         return result;
     }
 
+
     @RequestMapping("/editdata")
     public @ResponseBody
     Result editData(@RequestParam("json") String json, @RequestParam("type") String type) {
-        System.out.println(json);
-        System.out.println(type);
-        Result result = new Result(Result.CODE_OK,"test");
-
+        logger.debug(json);
+        ObjectMapper mapper = new ObjectMapper();
+        Result result = new Result();
+        result.setStatusCode(200);
+        result.setMessage("ok");
+        try {
+            JSONArray source = mapper.readValue(json, JSONArray.class);
+            LinkedHashMap<String, Object> temp;
+            if (type.equals("student")) {
+                StudentUser tempEntity;
+                for (Object aSource : source) {
+                    temp = (LinkedHashMap<String, Object>) aSource;
+                    tempEntity = mapper.readValue(mapper.writeValueAsString(temp), StudentUser.class);
+                    if (temp.containsKey("addFlag")) {
+                        studentUserService.addStudentUser(tempEntity);
+                    } else {
+                        studentUserService.updateStudentUser(tempEntity);
+                    }
+                }
+            }
+            }catch(IOException e){
+                e.printStackTrace();
+                result.setStatusCode(210);
+                result.setMessage("json parse fail~");
+            }
         return result;
     }
+
+
 
     @RequestMapping("/deletedata")
     public @ResponseBody
