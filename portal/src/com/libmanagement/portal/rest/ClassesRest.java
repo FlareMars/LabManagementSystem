@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,7 +36,7 @@ public class ClassesRest extends RestBaseBean {
         result.setMessage("获取班级列表成功");
 
         try {
-            academyName = URLDecoder.decode(academyName,"utf-8");
+            academyName = new String(academyName.getBytes("ISO-8859-1"),"UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
