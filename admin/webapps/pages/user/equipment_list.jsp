@@ -2,48 +2,51 @@
 <%@ taglib prefix="lms" uri="/lms-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-    $('#students-datagrid').datagrid({
+    $('#equipments-datagrid').datagrid({
         showToolbar: true,
         toolbarItem: 'add, edit, cancel, | , save, del',
         local: 'local',
-        dataUrl: '<lms:path/>/user/student_list',
+        dataUrl: '<lms:path/>/user/equipment_list',
         dataType: 'json',
         sortAll: true,
         filterAll: true,
         columns: [
             {
-                name: 'realName',
-                label: '姓名',
+                name: 'name',
+                label: '设备名字',
                 align: 'center',
                 width: 100
             },
             {
-                name: 'username',
-                label: '用户名',
+                name: 'model',
+                label: '设备型号',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'password',
-                label: '密码',
+                name: 'number',
+                label: '设备编号',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'studentNumber',
-                label: '学号',
+                name: 'function',
+                label: '设备功能简介',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'studentPassword',
-                label: '电子账号密码',
+                name: 'labRoom',
+                label: '所在位置',
                 align: 'center',
-                width: 140
+                width: 140,
+                render: function(value){
+                    return value.name;
+                }
             },
             {
-                name: 'currentClass',
-                label: '所在班级',
+                name: 'usages',
+                label: '设备使用情况',
                 align: 'center',
                 width: 100,
                 render: function(value) {
@@ -52,8 +55,8 @@
 
             }
         ],
-        editUrl: '<lms:path/>/user/editdata?type=student',
-        delUrl: '<lms:path/>/user/deletedata?type=student',
+        editUrl: '<lms:path/>/user/editdata?type=equipment',
+        delUrl: '<lms:path/>/user/deletedata?type=equipment',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -68,7 +71,7 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-    <table id="students-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
+    <table id="equipments-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
     </table>
 </div>
 

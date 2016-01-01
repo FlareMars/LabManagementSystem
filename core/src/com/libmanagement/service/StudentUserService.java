@@ -1,11 +1,14 @@
 package com.libmanagement.service;
 
 import com.libmanagement.entity.StudentUser;
-import com.libmanagement.entity.TeacherUser;
-import com.libmanagement.repository.TeacherUserRepository;
+import com.libmanagement.repository.StudentUserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,9 +19,39 @@ import java.util.List;
 public class StudentUserService {
 
     @Autowired
-    private StudentUserService studentUserService;
+    private StudentUserRepository studentUserRepository;
 
     public List<StudentUser> listStudents() {
-        return studentUserService.listStudents();
+        return studentUserRepository.listStudents();
+    }
+
+    public String addStudentUser(StudentUser temp) {
+        //todo ¼ì²é²ÎÊý
+
+        studentUserRepository.save(temp);
+        return temp.getId();
+    }
+
+    public void updateStudentUser(StudentUser data) {
+        List<StudentUser> temp = studentUserRepository.findByUsername(data.getUsername());
+        if(temp.size() > 0){
+            StudentUser entity = temp.get(0);
+            entity.setCurrentClass(data.getCurrentClass());
+            entity.setUsername(data.getUsername());
+            studentUserRepository.save(entity);
+        }
+    }
+
+    public boolean deleteStudentUser(List<String> ids) {
+        List<StudentUser> list = new ArrayList<>(ids.size());
+        for (int i = 0;i < ids.size();i++) {
+            list.get(i).setId(ids.get(i));
+        }
+        studentUserRepository.delete(list);
+        return true;
+    }
+
+    public boolean isValidStudent (StudentUser temp) {
+        return true;
     }
 }

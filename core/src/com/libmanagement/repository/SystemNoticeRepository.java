@@ -1,6 +1,7 @@
 package com.libmanagement.repository;
 
 import com.libmanagement.entity.SystemNotice;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,4 +18,14 @@ public interface SystemNoticeRepository extends JpaRepository<SystemNotice, Stri
 
     @Query("select s from SystemNotice as s")
     List<SystemNotice> getAllSystemNotice(Pageable pageable);
+
+    @Query("select t from SystemNotice as t where t.title=?1")
+    List<SystemNotice> findByTitle(String title);
+
+    @Query("select t from SystemNotice as t")
+    Page<SystemNotice> listSystemNotices(Pageable page);
+
+    @Query("select t from SystemNotice as t")
+    List<SystemNotice> listSystemNotices();
+
 }

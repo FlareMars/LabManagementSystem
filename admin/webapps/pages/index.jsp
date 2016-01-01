@@ -256,7 +256,10 @@
 							<ul class="menu-items" data-faicon="hand-o-up">
 								<li><a href="<lms:path/>/user/teacher_page" data-options="{id:'form-demo', faicon:'th-large'}">老师列表</a></li>
 								<li><a href="<lms:path/>/user/student_page" data-options="{id:'form-demo', faicon:'th-large'}">学生列表</a></li>
-								<li><a href="<lms:path/>/user/class_page" data-options="{id:'form-demo', faicon:'th-large'}">班级列表</a></li>
+								<li><a href="<lms:path/>/user/labroom_page" data-options="{id:'form-demo', faicon:'th-large'}">实验室列表</a></li>
+								<li><a href="<lms:path/>/user/equipment_page" data-options="{id:'form-demo', faicon:'th-large'}">设备列表</a></li>
+								<li><a href="<lms:path/>/user/consumption_goods_page" data-options="{id:'form-demo', faicon:'th-large'}">消耗品列表</a></li>
+								<li><a href="<lms:path/>/user/system_notice_page" data-options="{id:'form-demo', faicon:'th-large'}">系统公告列表</a></li>
 							</ul>
 						</div>
 					</li>

@@ -2,58 +2,51 @@
 <%@ taglib prefix="lms" uri="/lms-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript">
-    $('#students-datagrid').datagrid({
+    $('#consumption-goods-datagrid').datagrid({
         showToolbar: true,
         toolbarItem: 'add, edit, cancel, | , save, del',
         local: 'local',
-        dataUrl: '<lms:path/>/user/student_list',
+        dataUrl: '<lms:path/>/user/consumption_goods_list',
         dataType: 'json',
         sortAll: true,
         filterAll: true,
         columns: [
             {
-                name: 'realName',
-                label: '姓名',
+                name: 'name',
+                label: '名字',
                 align: 'center',
                 width: 100
             },
             {
-                name: 'username',
-                label: '用户名',
+                name: 'model',
+                label: '型号',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'password',
-                label: '密码',
+                name: 'information',
+                label: '额外信息',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'studentNumber',
-                label: '学号',
+                name: 'totalStock',
+                label: '库存总量',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'studentPassword',
-                label: '电子账号密码',
+                name: 'usageList',
+                label: '库存情况列表',
                 align: 'center',
-                width: 140
-            },
-            {
-                name: 'currentClass',
-                label: '所在班级',
-                align: 'center',
-                width: 100,
-                render: function(value) {
+                width: 140,
+                render: function(value){
                     return value.name;
                 }
-
             }
         ],
-        editUrl: '<lms:path/>/user/editdata?type=student',
-        delUrl: '<lms:path/>/user/deletedata?type=student',
+        editUrl: '<lms:path/>/user/editdata?type=consumption_goods',
+        delUrl: '<lms:path/>/user/deletedata?type=consumption_goods',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -68,7 +61,7 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-    <table id="students-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
+    <table id="consumption-goods-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
     </table>
 </div>
 

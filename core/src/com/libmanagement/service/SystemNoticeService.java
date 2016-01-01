@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,37 @@ public class SystemNoticeService {
     }
 
     private PageRequest buildPageRequest(int pageNumber,int pageSize,Sort.Direction sortDirection,String sortKey) {
-        Sort sort = new Sort(sortDirection,sortKey);
-        return new PageRequest(pageNumber - 1,pageSize,sort);
+        Sort sort = new Sort(sortDirection, sortKey);
+        return new PageRequest(pageNumber - 1, pageSize, sort);
+    }
+
+    public String addSystemNotice(SystemNotice temp) {
+        //todo ¼ì²é²ÎÊý
+
+        systemNoticeRepository.save(temp);
+        return temp.getId();
+    }
+
+    public void updateSystemNotice(SystemNotice data) {
+        List<SystemNotice> temp = systemNoticeRepository.findByTitle(data.getTitle());
+        if(temp.size() > 0){
+            SystemNotice entity = temp.get(0);
+            entity.setContent(data.getContent());
+            entity.setOperator(data.getOperator());
+            systemNoticeRepository.save(entity);
+        }
+    }
+
+    public boolean deleteSystemNotices(List<String> ids) {
+        List<SystemNotice> list = new ArrayList<>(ids.size());
+        for (int i = 0;i < ids.size();i++) {
+            list.get(i).setId(ids.get(i));
+        }
+        systemNoticeRepository.delete(list);
+        return true;
+    }
+
+    public boolean isValidSystemNotice (SystemNotice temp) {
+        return true;
     }
 }
