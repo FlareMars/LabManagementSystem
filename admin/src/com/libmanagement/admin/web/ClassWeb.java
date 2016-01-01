@@ -41,7 +41,6 @@ public class ClassWeb extends AdminWebBean {
         List<Classes> list = classesService.listAllClasses();
         StringBuilder sb = new StringBuilder("[\n");
         System.out.println("Here");
-        System.out.println("Here");
         System.out.println(list);
         return list;
     }
