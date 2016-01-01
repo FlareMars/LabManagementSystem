@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 /**
- * Created by FlareMars on 2016/1/1
+ * Created by Hugo775128583 on 2016/1/1.
  */
 public interface LabRoomRepository extends JpaRepository<LabRoom,String> {
 

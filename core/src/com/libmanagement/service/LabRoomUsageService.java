@@ -1,7 +1,6 @@
 package com.libmanagement.service;
 
 import com.libmanagement.entity.LabRoomUsage;
-import com.libmanagement.repository.LabRoomRepository;
 import com.libmanagement.repository.LabRoomUsageRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
