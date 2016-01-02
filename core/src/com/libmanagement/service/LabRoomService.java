@@ -33,6 +33,7 @@ public class LabRoomService {
         return labRoomRepository.findAll();
     }
 
+
     public String addLabRoom(LabRoom temp) {
         //todo ¼ì²é²ÎÊý
 

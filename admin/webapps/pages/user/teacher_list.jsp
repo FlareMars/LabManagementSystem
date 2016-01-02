@@ -46,6 +46,10 @@
                 label: '所在学院',
                 align: 'center',
                 width: 100,
+                type: 'select',
+                items: function(){
+                    return $.getJSON('<lms:path/>/academy/list_all_academies');
+                },
                 render: function(value) {
                     return value.name;
                 }

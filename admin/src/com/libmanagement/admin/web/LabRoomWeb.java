@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by FlareMars on 2015/11/28
@@ -48,6 +51,18 @@ public class LabRoomWeb extends AdminWebBean {
             result.setStatusCode(210);
         }
         return result;
+    }
+
+    @RequestMapping("/list_all_labrooms")
+    public @ResponseBody List<Map<String,String>> listAllLabRooms(){
+        List<LabRoom> list = labRoomService.listLabRooms();
+        List<Map<String,String>> beanList = new ArrayList<>(list.size());
+        for (LabRoom temp : list) {
+            Map<String,String> bean = new HashMap<>();
+            bean.put(temp.getId(),temp.getRoomNumber());
+            beanList.add(bean);
+        }
+        return beanList;
     }
 
 

@@ -13,4 +13,7 @@ public interface AcademyRepository extends JpaRepository<Academy,String> {
 
     @Query("select a from Academy as a where a.name = ?1")
     List<Academy> findByName(String academyName);
+
+    @Query("select a from Academy as a")
+    List<Academy> listAllAcademies();
 }

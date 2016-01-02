@@ -33,13 +33,19 @@
                 name: 'type',
                 label: '实验室类别',
                 align: 'center',
-                width: 140
+                width: 140,
+                type: 'select',
+                items: [{0:'计算机实验室'}, {1:'物理实验室'}, {2:'生物实验室'}, {3:'化学实验室'}]
             },
             {
                 name: 'manager',
                 label: '管理员',
                 align: 'center',
-                width: 140
+                width: 140,
+                type: 'select',
+                items: function(){
+                    return $.getJSON('<lms:path/>/role/list_all_roles')
+                }
             },
             {
                 name: 'usageList',

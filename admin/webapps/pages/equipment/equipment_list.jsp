@@ -40,6 +40,10 @@
                 label: '所在位置',
                 align: 'center',
                 width: 140,
+                type: 'select',
+                items: function(){
+                    return $.getJSON('<lms:path/>/labroom/list_all_labrooms');
+                },
                 render: function(value){
                     return value.name;
                 }

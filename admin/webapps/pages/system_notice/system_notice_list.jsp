@@ -28,8 +28,9 @@
                 label: '操作员',
                 align: 'center',
                 width: 140,
-                render: function(value){
-                    return value.name;
+                type: 'select',
+                items: function(){
+                    return $.getJSON('<lms:path/>/role/list_all_roles')
                 }
             }
         ],
