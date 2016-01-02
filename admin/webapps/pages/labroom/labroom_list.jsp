@@ -44,7 +44,7 @@
                 width: 140,
                 type: 'select',
                 items: function(){
-                    return $.getJSON('<lms:path/>/role/list_all_roles')
+                    return $.getJSON('<lms:path/>/roommanager/list_all_managers')
                 }
             },
             {
