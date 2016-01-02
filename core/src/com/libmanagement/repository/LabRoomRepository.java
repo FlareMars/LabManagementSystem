@@ -15,4 +15,5 @@ public interface LabRoomRepository extends JpaRepository<LabRoom,String> {
 
     @Query("select l from LabRoom as l where l.department = ?1 and l.roomNumber = ?2")
     List<LabRoom> findByRoomNumber(String department,String roomNumber);
+
 }

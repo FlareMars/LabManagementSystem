@@ -59,7 +59,7 @@ public class LabRoomWeb extends AdminWebBean {
         List<Map<String,String>> beanList = new ArrayList<>(list.size());
         for (LabRoom temp : list) {
             Map<String,String> bean = new HashMap<>();
-            bean.put(temp.getId(),temp.getRoomNumber());
+            bean.put(temp.getDepartment() + temp.getRoomNumber(),temp.getDepartment() + temp.getRoomNumber());
             beanList.add(bean);
         }
         return beanList;

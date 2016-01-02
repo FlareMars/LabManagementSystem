@@ -214,7 +214,6 @@
 						<li><a href="<lms:path/>/logout" class="red">&nbsp;<span class="glyphicon glyphicon-off"></span> 注销登陆</a></li>
 					</ul>
 				</li>
-				<li><a href="index_tree.html" title="切换为树状导航(宽版)" style="background-color:#ff7b61;">树状导航栏(宽版)</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle theme blue" data-toggle="dropdown" title="切换皮肤"><i class="fa fa-tree"></i></a>
 					<ul class="dropdown-menu" role="menu" id="bjui-themes">
 						<li><a href="javascript:;" class="theme_default" data-toggle="theme" data-theme="default">&nbsp;<i class="fa fa-tree"></i> 黑白分明&nbsp;&nbsp;</a></li>

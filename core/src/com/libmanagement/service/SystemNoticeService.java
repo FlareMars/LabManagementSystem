@@ -46,7 +46,7 @@ public class SystemNoticeService {
         } else {
             //default manager
             operator.setId("5c5a8bbb0a2b4bd68a522e64e5b6f392");
-            temp.setOperatorName("¹ÜÀíÔ±A_5c5a8bbb0a2b4bd68a522e64e5b6f392");
+            temp.setOperatorName("ç®¡ç†å‘˜A_5c5a8bbb0a2b4bd68a522e64e5b6f392");
         }
         temp.setOperator(operator);
         systemNoticeRepository.save(temp);

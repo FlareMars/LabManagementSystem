@@ -57,7 +57,7 @@ public class AnnouncementRest extends RestBaseBean {
                 bean.title = temp.getTitle();
                 bean.content = temp.getContent();
                 bean.createTimeStr = temp.getCreateTimeStr();
-                bean.operator = "管理员:" + temp.getOperator().getUserName();
+                bean.operator = "系统管理员";
                 dataList.add(bean);
             }
             JSONObject jsonObject = new JSONObject();

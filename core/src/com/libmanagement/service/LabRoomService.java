@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by FlareMars on 2016/1/1
@@ -16,7 +18,6 @@ import java.util.List;
 @Service
 public class LabRoomService {
     private Log logger = LogFactory.getLog(LabRoomService.class);
-
 
     @Autowired
     private LabRoomRepository labRoomRepository;
@@ -33,9 +34,27 @@ public class LabRoomService {
         return labRoomRepository.findAll();
     }
 
+    public LabRoom findByFullName(String fullName) {
+        String regEx="[0-9]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(fullName);
+        if (m.find()) {
+            String department = fullName.substring(0, m.start());
+            String roomNumber = fullName.substring(m.start());
+            System.out.println(department + " " + roomNumber);
+            List<LabRoom> temp = labRoomRepository.findByRoomNumber(department, roomNumber);
+            if (temp.size() > 0) {
+                return temp.get(0);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 
     public String addLabRoom(LabRoom temp) {
-        //todo ºÏ≤È≤Œ ˝
+        //todo Ê£ÄÊü•ÂèÇÊï∞
 
         labRoomRepository.save(temp);
         return temp.getId();

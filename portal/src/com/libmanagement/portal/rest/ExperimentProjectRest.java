@@ -283,6 +283,7 @@ public class ExperimentProjectRest extends RestBaseBean {
 
                     tempStudentPlan = new StudentExperimentPlan();
                     tempStudentPlan.setExperimentId(experimentId);
+                    tempStudentPlan.setContent(projectEntity.getBaseInfo());
                     tempStudentPlan.setExperimentName(projectEntity.getName());
                     tempStudentPlan.setTeacher(teacherUserService.findById(teacherId).getRealName());
                     tempStudentPlan.setLabRoom(labRoom.getDepartment() + labRoom.getRoomNumber());

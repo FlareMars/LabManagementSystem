@@ -1,6 +1,7 @@
 package com.libmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "lms_equipment")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Equipment extends Describertable {
 
     //设备名字
@@ -30,11 +32,21 @@ public class Equipment extends Describertable {
     @JoinColumn(name = "lab_room_id")
     private LabRoom labRoom;
 
+    private String position;
+
     //设备使用情况
     @OneToMany
     @JoinColumn(name = "equipment_id")
     @JsonIgnore
     private List<EquipmentUsage> usages;
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
 
     public String getName() {
         return name;

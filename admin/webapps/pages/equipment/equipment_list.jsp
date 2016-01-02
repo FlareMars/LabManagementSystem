@@ -30,37 +30,43 @@
                 width: 140
             },
             {
+                name: 'number',
+                label: '数量',
+                align: 'center',
+                width: 100
+            },
+            {
                 name: 'function',
                 label: '设备功能简介',
                 align: 'center',
                 width: 140
             },
             {
-                name: 'labRoom',
+                name: 'position',
                 label: '所在位置',
                 align: 'center',
                 width: 140,
                 type: 'select',
                 items: function(){
                     return $.getJSON('<lms:path/>/labroom/list_all_labrooms');
-                },
-                render: function(value){
-                    return value.name;
                 }
             },
             {
-                name: 'usages',
-                label: '设备使用情况',
+                name: 'id',
+                label: ' ',
+                width: 120,
                 align: 'center',
-                width: 100,
                 render: function(value) {
-                    return value.name;
-                }
+                    var url = '<lms:path/>/pages/equipment/doUsage.jsp?equipmentId=' + value;
 
+                    return "<button data-toggle='ajaxload' class='editBtn btn btn-green' data-target='#usageTable' href='<lms:path/>/equipment/usage_statement?equipment=" + value + "'>" + "使用情况" + "</button>" +
+                            "<button data-toggle='dialog' class='btn btn-red' data-id='handleEquipmentDialog' data-width='400' data-title='操作仪器设备' data-mask='true' data-url='" + url +  "'>操作</button>";
+
+                }
             }
         ],
-        editUrl: '<lms:path/>/equipment/editdata?type=equipment',
-        delUrl: '<lms:path/>/equipment/deletedata?type=equipment',
+        editUrl: '<lms:path/>/equipment/editdata',
+        delUrl: '<lms:path/>/equipment/deletedata',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -79,4 +85,4 @@
     </table>
 </div>
 
-
+<div class="bjui-layout" style="top: 350px;height:250px" id="usageTable"></div>

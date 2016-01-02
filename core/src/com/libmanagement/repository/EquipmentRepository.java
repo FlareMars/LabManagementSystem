@@ -18,7 +18,7 @@ public interface EquipmentRepository extends JpaRepository<Equipment, String> {
     @Query("select t from Equipment as t")
     Page<Equipment> listEquipments(Pageable page);
 
-    @Query("select t from LabRoom as t")
+    @Query("select t from Equipment as t")
     List<Equipment> listEquipments();
 
     @Query("select t from Equipment as t where t.name=?1")

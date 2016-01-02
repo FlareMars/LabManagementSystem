@@ -27,6 +27,16 @@ public class StudentExperimentPlan extends Describertable {
 
     private String parentPlanId;
 
+    private String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getParentPlanId() {
         return parentPlanId;
     }
