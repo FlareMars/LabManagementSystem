@@ -34,6 +34,9 @@ public class LabRoomWeb extends AdminWebBean {
     @Autowired
     private LabRoomUsageService labRoomUsageService;
 
+    @Autowired
+    private EquipmentService equipmentService;
+
     @RequestMapping("/labroom_page")
     public String listLabRoom() {
         return "/pages/labroom/labroom_list";
@@ -102,39 +105,26 @@ public class LabRoomWeb extends AdminWebBean {
         return result;
     }
 
-//    @RequestMapping("/lab_equipment_own_page")
-//    public String listLabRoomEquipmentUsage(@RequestParam("labRoomId") String labRoomId, Model model) {
-//        model.addAttribute("labRoomId", labRoomId);
-//        return "/pages/labroom/lab_equipment_own_statement";
-//    }
-//
-//    @RequestMapping("/list_equipment")
-//    public @ResponseBody Result listEquipment(@RequestParam("labRoomId") String labRoomId){
-//        List<LabRoomUsage> usageList = labRoomUsageService.findByRoomId(labRoomId);
-//        Result result = new Result();
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            for(LabRoomUsage temp: usageList) {
-//                if (!temp.getStatus().equals(LabRoomUsage.TYPE_FINISHED)) {
-//                    Date current = new Date();
-//                    Calendar target = Calendar.getInstance();
-//                    target.setTime(temp.getTargetDate());
-//                    target.set(Calendar.HOUR_OF_DAY, LabRoomUsage.END_HOURS[temp.getTargetTime()]);
-//                    target.set(Calendar.MINUTE, LabRoomUsage.END_MINUTES[temp.getTargetTime()]);
-//                    if(current.after(target.getTime())){
-//                        temp.setStatus(LabRoomUsage.TYPE_FINISHED);
-//                        labRoomUsageService.updateUsage(temp);
-//                    }
-//                }
-//            }
-//            result.setData(mapper.writeValueAsString(usageList));
-//            return result;
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//            result.setStatusCode(210);
-//        }
-//        return result;
-//    }
+    @RequestMapping("/lab_equipment_own_page")
+    public String listLabRoomEquipmentUsage(@RequestParam("labRoomId") String labRoomId, Model model) {
+        model.addAttribute("labRoomId", labRoomId);
+        return "/pages/labroom/lab_equipment_own_statement";
+    }
+
+    @RequestMapping("/lab_equipment_own_statement")
+    public @ResponseBody Result listEquipment(@RequestParam("labRoomId") String labRoomId){
+        List<Equipment> usageList = equipmentService.findByRoomId(labRoomId);
+        Result result = new Result();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            result.setData(mapper.writeValueAsString(usageList));
+            return result;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            result.setStatusCode(210);
+        }
+        return result;
+    }
 
     @RequestMapping("/editdata")
     public @ResponseBody

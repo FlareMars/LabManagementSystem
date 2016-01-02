@@ -23,4 +23,7 @@ public interface EquipmentRepository extends JpaRepository<Equipment, String> {
 
     @Query("select t from Equipment as t where t.name=?1")
     List<Equipment> findByName(String name);
+
+    @Query("select t from Equipment as t where t.labRoom.id=?1")
+    List<Equipment> findByLabRoomId(String labRoomId);
 }

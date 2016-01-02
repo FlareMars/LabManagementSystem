@@ -80,6 +80,8 @@ public class EquipmentService {
         return usageService.findByEquipmentId(equipmentId);
     }
 
+    public List<Equipment> findByRoomId(String labRoomId){ return equipmentRepository.findByLabRoomId(labRoomId);}
+
     public boolean deleteEquipment(List<String> ids) {
         List<Equipment> list = new ArrayList<>(ids.size());
         for (int i = 0;i < ids.size();i++) {

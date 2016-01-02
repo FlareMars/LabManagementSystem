@@ -57,18 +57,20 @@
                 width: 100,
                 render: function(id) {
                     var url = '<lms:path/>/labroom/labroom_usage_page?labRoomId=' + id;
-                    return "<a data-toggle='ajaxload' data-target='#usageTable' href='" + url + "'>查看</a>"
+                    console.log(url);
+                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
                 }
 
             },
             {
-                name: 'equipmentList',
+                name: 'id',
                 label: '设备仪器列表',
                 align: 'center',
                 width: 100,
                 render: function(id) {
-                    var url = '<lms:path/>/labroom/lab_equipment_own_statement?labRoomId=' + id;
-                    return "<a data-toggle='ajaxload' data-target='#equipmentUsageTable' href='" + url + "'>查看</a>"
+                    var url = '<lms:path/>/labroom/lab_equipment_own_page?labRoomId=' + id;
+                    console.log(url);
+                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
                 }
             },
             {
@@ -101,7 +103,6 @@
     </table>
 </div>
 
-<div class="bjui-layout" style="top: 350px;height:250px" id="usageTable"></div>
-<div class="bjui-layout" style="top: 350px;height:250px" id="equipmentUsageTable"></div>
+<div class="bjui-layout" style="top: 350px;height:250px" id="container"></div>
 
 

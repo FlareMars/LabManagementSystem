@@ -5,7 +5,7 @@
   $('#lab_equipment_usage-datagrid').datagrid({
     showToolbar: true,
     local: 'local',
-    dataUrl: '<lms:path/>/labroom/list_usage?labRoomId=<c:out value="${labRoomId}"/>',
+    dataUrl: '<lms:path/>/labroom/lab_equipment_own_statement?labRoomId=<c:out value="${labRoomId}"/>',
     dataType: 'json',
     sortAll: true,
     filterAll: true,
