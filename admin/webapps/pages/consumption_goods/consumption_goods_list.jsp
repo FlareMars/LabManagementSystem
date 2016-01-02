@@ -15,7 +15,12 @@
                 name: 'name',
                 label: '名字',
                 align: 'center',
-                width: 100
+                width: 100,
+                render: function(value) {
+                    var name = value.substring(0,value.indexOf('_'));
+                    var id = value.substring(value.indexOf('_') + 1);
+                    return "<a href='<lms:path/>/consumption_goods/usage_statement?goodsId=" + id + "'>" + name + "</a>"
+                }
             },
             {
                 name: 'model',
@@ -33,20 +38,25 @@
                 name: 'totalStock',
                 label: '库存总量',
                 align: 'center',
-                width: 140
+                edit: false,
+                width: 50
             },
             {
-                name: 'usageList',
-                label: '库存情况列表',
+                name: 'id',
+                label: '转移消耗品',
                 align: 'center',
-                width: 140,
-                render: function(value){
-                    return value.name;
+                quicksort: false,
+                width: 40,
+                edit: false,
+                add: false,
+                render: function(id) {
+                    var url = '<lms:path/>/pages/consumption_goods/modifyStock.jsp?goodsId=' + id;
+                    return "<button data-toggle='dialog' data-id='modifyStockDialog' data-width='400' data-title='消耗品库存更改' data-mask='true' data-url='" + url +  "'>操作</button>";
                 }
             }
         ],
-        editUrl: '<lms:path/>/consumption_goods/editdata?type=consumption_goods',
-        delUrl: '<lms:path/>/consumption_goods/deletedata?type=consumption_goods',
+        editUrl: '<lms:path/>/consumption_goods/editdata',
+        delUrl: '<lms:path/>/consumption_goods/deletedata',
         delPK: 'id',
         paging: false,
         linenumberAll: true,

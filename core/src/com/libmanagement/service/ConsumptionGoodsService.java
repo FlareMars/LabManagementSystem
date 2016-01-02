@@ -1,6 +1,9 @@
 package com.libmanagement.service;
 
+import com.libmanagement.common.exception.LMSServerException;
+import com.libmanagement.common.utils.StringUtils;
 import com.libmanagement.entity.ConsumptionGoods;
+import com.libmanagement.entity.ConsumptionGoodsUsage;
 import com.libmanagement.repository.ConsumptionGoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,21 +25,26 @@ public class ConsumptionGoodsService {
     public List<ConsumptionGoods> listConsumptionGoods() {return consumptionGoodsrepository.listConsumptionGoods();}
 
     public String addConsumptionGoods(ConsumptionGoods temp) {
-        //todo ¼ì²é²ÎÊý
-
+        temp.setId(StringUtils.INSTANCE.generateUUID());
         consumptionGoodsrepository.save(temp);
         return temp.getId();
     }
 
     public void updateConsumptionGoods(ConsumptionGoods data) {
-        List<ConsumptionGoods> temp = consumptionGoodsrepository.findByName(data.getName());
-        if(temp.size() > 0){
-            ConsumptionGoods entity = temp.get(0);
-            entity.setModel(data.getModel());
-            entity.setInformation(data.getInformation());
-            entity.setTotalStock(data.getTotalStock());
-            consumptionGoodsrepository.save(entity);
+        ConsumptionGoods entity = consumptionGoodsrepository.findOne(data.getId());
+        if (entity == null) {
+            List<ConsumptionGoods> temp = consumptionGoodsrepository.findByNameAndModel(data.getName(),data.getModel());
+            if (temp.size() > 0) {
+                entity = temp.get(0);
+            } else {
+                throw new LMSServerException("no data!");
+            }
         }
+
+        entity.setName(data.getName());
+        entity.setInformation(data.getInformation());
+        entity.setModel(data.getModel());
+        entity.setTotalStock(data.getTotalStock());
     }
 
     public boolean deleteConsumptionGoods(List<String> ids) {
@@ -48,7 +56,26 @@ public class ConsumptionGoodsService {
         return true;
     }
 
+    public ConsumptionGoods findById(String id) {
+        return consumptionGoodsrepository.findOne(id);
+    }
+
     public boolean isValidConsumptionGoods (ConsumptionGoods temp) {
+        return true;
+    }
+
+    public boolean modifyStock(String id,Integer type,Integer number) {
+        ConsumptionGoods goods = findById(id);
+        if (type.equals(ConsumptionGoodsUsage.TYPE_IN)) {
+            goods.setTotalStock(goods.getTotalStock() + number);
+        } else {
+            if (goods.getTotalStock() < number) {
+                return false;
+            } else {
+                goods.setTotalStock(goods.getTotalStock() - number);
+            }
+        }
+        consumptionGoodsrepository.save(goods);
         return true;
     }
 }

@@ -23,4 +23,7 @@ public interface ConsumptionGoodsRepository extends JpaRepository<ConsumptionGoo
 
     @Query("select t from ConsumptionGoods as t where t.name=?1")
     List<ConsumptionGoods> findByName(String name);
+
+    @Query("select t from ConsumptionGoods as t where t.name = ?1 and t.model = ?2")
+    List<ConsumptionGoods> findByNameAndModel(String name,String model);
 }

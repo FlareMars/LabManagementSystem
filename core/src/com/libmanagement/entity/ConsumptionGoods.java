@@ -1,5 +1,6 @@
 package com.libmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.Entity;
@@ -14,8 +15,8 @@ import java.util.List;
  */
 @Entity
 @Table(name = "lms_consumption_goods")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsumptionGoods extends Describertable {
-
     //Ãû×Ö
     private String name;
 
