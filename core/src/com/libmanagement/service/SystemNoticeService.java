@@ -1,6 +1,7 @@
 package com.libmanagement.service;
 
 import com.libmanagement.entity.SystemNotice;
+import com.libmanagement.entity.User;
 import com.libmanagement.repository.SystemNoticeRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -36,29 +37,37 @@ public class SystemNoticeService {
     }
 
     public String addSystemNotice(SystemNotice temp) {
-        //todo 检查参数
 
+        String operatorName = temp.getOperatorName();
+        User operator = new User();
+        if (operatorName != null && !operatorName.equals("")) {
+            String operatorId = temp.getOperatorName().substring(temp.getOperatorName().indexOf("_") + 1);
+            operator.setId(operatorId);
+        } else {
+            //default manager
+            operator.setId("5c5a8bbb0a2b4bd68a522e64e5b6f392");
+            temp.setOperatorName("管理员A_5c5a8bbb0a2b4bd68a522e64e5b6f392");
+        }
+        temp.setOperator(operator);
         systemNoticeRepository.save(temp);
         return temp.getId();
     }
 
     public void updateSystemNotice(SystemNotice data) {
-        List<SystemNotice> temp = systemNoticeRepository.findByTitle(data.getTitle());
-        if(temp.size() > 0){
-            SystemNotice entity = temp.get(0);
-            entity.setContent(data.getContent());
-            entity.setOperator(data.getOperator());
-            systemNoticeRepository.save(entity);
+        SystemNotice temp = systemNoticeRepository.findOne(data.getId());
+        if(temp != null) {
+            temp.setContent(data.getContent());
+            temp.setTitle(data.getTitle());
+            systemNoticeRepository.save(temp);
         }
     }
 
-    public boolean deleteSystemNotices(List<String> ids) {
-        List<SystemNotice> list = new ArrayList<>(ids.size());
-        for (int i = 0;i < ids.size();i++) {
-            list.get(i).setId(ids.get(i));
-        }
-        systemNoticeRepository.delete(list);
-        return true;
+    public void deleteSystemNotice(String id) {
+        systemNoticeRepository.delete(id);
+    }
+
+    public void deleteSystemNotices(List<SystemNotice> data) {
+        systemNoticeRepository.delete(data);
     }
 
     public boolean isValidSystemNotice (SystemNotice temp) {

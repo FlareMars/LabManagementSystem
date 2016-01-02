@@ -12,6 +12,10 @@
         filterAll: true,
         columns: [
             {
+                name:'id',
+                hide: true
+            },
+            {
                 name: 'title',
                 label: '公告标题',
                 align: 'center',
@@ -21,21 +25,25 @@
                 name: 'content',
                 label: '公告内容',
                 align: 'center',
+                type: 'textarea',
                 width: 140
             },
             {
-                name: 'operator',
+                name: 'operatorName',
                 label: '操作员',
                 align: 'center',
                 width: 140,
                 type: 'select',
                 items: function(){
-                    return $.getJSON('<lms:path/>/role/list_all_roles')
+                    return $.getJSON('<lms:path/>/roommanager/list_all_managers')
+                },
+                render: function(value) {
+                    return value.substring(0,value.indexOf('_'));
                 }
             }
         ],
-        editUrl: '<lms:path/>/system_notice/editdata?type=system_notice',
-        delUrl: '<lms:path/>/system_notice/deletedata?type=system_notice',
+        editUrl: '<lms:path/>/system_notice/editdata',
+        delUrl: '<lms:path/>/system_notice/deletedata',
         delPK: 'id',
         paging: false,
         linenumberAll: true,

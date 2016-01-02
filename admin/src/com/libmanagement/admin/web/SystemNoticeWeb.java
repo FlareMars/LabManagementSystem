@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -53,11 +56,53 @@ public class SystemNoticeWeb extends AdminWebBean {
 
     @RequestMapping("/editdata")
     public @ResponseBody
-    Result editData(@RequestParam("json") String json, @RequestParam("type") String type) {
-        System.out.println(json);
-        System.out.println(type);
-        Result result = new Result(Result.CODE_OK,"test");
+    Result editData(@RequestParam("json") String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        Result result = new Result();
+        result.setStatusCode(200);
+        result.setMessage("ok");
+        try {
+            List<LinkedHashMap<String, Object>> source = mapper.readValue(json, List.class);
+            LinkedHashMap<String, Object> temp;
 
+            SystemNotice tempEntity;
+            for (Object aSource : source) {
+                temp = (LinkedHashMap<String, Object>) aSource;
+                tempEntity = mapper.readValue(mapper.writeValueAsString(temp), SystemNotice.class);
+                if (temp.containsKey("addFlag")) {
+                    systemNoticeService.addSystemNotice(tempEntity);
+                } else {
+                    systemNoticeService.updateSystemNotice(tempEntity);
+                }
+            }
+
+        }catch(IOException e){
+            e.printStackTrace();
+            result.setStatusCode(210);
+            result.setMessage("json parse fail~");
+        }
+        return result;
+    }
+
+    @RequestMapping("/deletedata")
+    public @ResponseBody
+    Result deletePipelineChapter(@RequestParam(value = "id") String id) {
+        Result result = new Result();
+        if (id.contains(",")) {
+            String [] ids = id.split(",");
+            List<SystemNotice> tempList = new ArrayList<>();
+            SystemNotice tempEntity;
+            for(String temp : ids) {
+                tempEntity = new SystemNotice();
+                tempEntity.setId(temp);
+                tempList.add(tempEntity);
+            }
+            systemNoticeService.deleteSystemNotices(tempList);
+        } else {
+            systemNoticeService.deleteSystemNotice(id);
+        }
+        result.setStatusCode(200);
+        result.setMessage("ok");
         return result;
     }
 }

@@ -257,6 +257,12 @@ public class UserService {
 
     }
 
+    public List<User> listUsers() {
+
+        return userRepository.findAll();
+
+    }
+
     public Page<LoginLog> listLoginLogs(Pageable page) {
 
         return loginLogRepository.list(page);
