@@ -12,6 +12,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,7 +23,7 @@ import java.util.List;
 
 /**
  * Created by FlareMars on 2015/11/28
- * ”√ªßπ‹¿Ìøÿ÷∆∆˜
+ * Áî®Êà∑ÁÆ°ÁêÜÊéßÂà∂Âô®
  */
 @Controller
 @RequestMapping("/consumption_goods")
@@ -108,14 +109,37 @@ public class ConsumptionGoodsWeb extends AdminWebBean {
             usageService.addUsage(goodsUsage);
         } else {
             result.setStatusCode(210);
-            if (type == ConsumptionGoodsUsage.TYPE_OUT) {
+            if (type.equals(ConsumptionGoodsUsage.TYPE_OUT)) {
                 result.setMessage("current stock is smaller than target number");
             } else {
                 result.setMessage("fail");
             }
         }
+        return result;
+    }
 
+    @RequestMapping("/usage_statement")
+    public String usageStatement(Model model,@RequestParam("goodsId")String id) {
+        model.addAttribute("goodsId",id);
+        ConsumptionGoods goods = consumptionGoodsService.findById(id);
+        model.addAttribute("name","„Äê" + goods.getName() + ":" + goods.getModel() + "„Äë");
+        return "/pages/consumption_goods/usage_statement";
+    }
 
+    @RequestMapping("/consumption_goods_usage_list")
+    public @ResponseBody
+    Result listUsage(@RequestParam("goodsId")String goodsId) {
+        Result result = new Result();
+        result.setStatusCode(200);
+        result.setMessage("get usage list success");
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            result.setData(mapper.writeValueAsString(consumptionGoodsService.listUsage(goodsId)));
+            return result;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            result.setStatusCode(210);
+        }
         return result;
     }
 }

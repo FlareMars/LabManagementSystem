@@ -7,6 +7,8 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by FlareMars on 2016/1/2
  */
@@ -20,5 +22,9 @@ public class ConsumptionGoodsUsageService {
     public String addUsage(ConsumptionGoodsUsage data) {
         consumptionGoodsUsageRepository.save(data);
         return data.getId();
+    }
+
+    public List<ConsumptionGoodsUsage> findByGoodsId(String goodsId) {
+        return consumptionGoodsUsageRepository.findByGoodsId(goodsId);
     }
 }

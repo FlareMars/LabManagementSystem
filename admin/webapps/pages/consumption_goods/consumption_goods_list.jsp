@@ -19,7 +19,7 @@
                 render: function(value) {
                     var name = value.substring(0,value.indexOf('_'));
                     var id = value.substring(value.indexOf('_') + 1);
-                    return "<a href='<lms:path/>/consumption_goods/usage_statement?goodsId=" + id + "'>" + name + "</a>"
+                    return "<a data-toggle='ajaxload' data-target='#usageTable' href='<lms:path/>/consumption_goods/usage_statement?goodsId=" + id + "'>" + name + "</a>"
                 }
             },
             {
@@ -58,9 +58,9 @@
         editUrl: '<lms:path/>/consumption_goods/editdata',
         delUrl: '<lms:path/>/consumption_goods/deletedata',
         delPK: 'id',
-        paging: false,
         linenumberAll: true,
         fullGrid:true,
+        paging: false,
         afterSave: function () {
             $(this).navtab('refresh')
         },
@@ -75,4 +75,4 @@
     </table>
 </div>
 
-
+<div class="bjui-layout" style="top: 350px;height:250px" id="usageTable"></div>

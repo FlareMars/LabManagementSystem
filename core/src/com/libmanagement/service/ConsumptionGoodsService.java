@@ -22,6 +22,9 @@ public class ConsumptionGoodsService {
     @Autowired
     private ConsumptionGoodsRepository consumptionGoodsrepository;
 
+    @Autowired
+    private ConsumptionGoodsUsageService usageService;
+
     public List<ConsumptionGoods> listConsumptionGoods() {return consumptionGoodsrepository.listConsumptionGoods();}
 
     public String addConsumptionGoods(ConsumptionGoods temp) {
@@ -77,5 +80,9 @@ public class ConsumptionGoodsService {
         }
         consumptionGoodsrepository.save(goods);
         return true;
+    }
+
+    public List<ConsumptionGoodsUsage> listUsage(String id) {
+        return usageService.findByGoodsId(id);
     }
 }
