@@ -35,7 +35,16 @@ public class LabRoomWeb extends AdminWebBean {
     private LabRoomUsageService labRoomUsageService;
 
     @Autowired
-    private EquipmentService equipmentService;
+    private LabRoomConsumptionGoodsService labRoomConsumptionGoodsService;
+
+    @Autowired
+    private LabRoomEquipmentService labRoomEquipmentService;
+
+    @Autowired
+    private ConsumptionGoodsService consumptionGoodsService;
+
+    @Autowired
+    private ConsumptionGoodsUsageService consumptionGoodsUsageService;
 
     @RequestMapping("/labroom_page")
     public String listLabRoom() {
@@ -113,7 +122,28 @@ public class LabRoomWeb extends AdminWebBean {
 
     @RequestMapping("/lab_equipment_own_statement")
     public @ResponseBody Result listEquipment(@RequestParam("labRoomId") String labRoomId){
-        List<Equipment> usageList = equipmentService.findByRoomId(labRoomId);
+        List<LabRoomEquipment> equipmentList = labRoomEquipmentService.findByRoomId(labRoomId);
+        Result result = new Result();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            result.setData(mapper.writeValueAsString(equipmentList));
+            return result;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            result.setStatusCode(210);
+        }
+        return result;
+    }
+
+    @RequestMapping("/lab_consumption_goods_own_page")
+    public String listLabRoomConsumptionGoodsUsage(@RequestParam("labRoomId") String labRoomId, Model model) {
+        model.addAttribute("labRoomId", labRoomId);
+        return "/pages/labroom/lab_consumption_goods_own_statement";
+    }
+
+    @RequestMapping("/lab_consumption_goods_own_statement")
+    public @ResponseBody Result listConsumptionGoods(@RequestParam("labRoomId") String labRoomId){
+        List<LabRoomConsumptionGoods> usageList = labRoomConsumptionGoodsService.findByRoomId(labRoomId);
         Result result = new Result();
         ObjectMapper mapper = new ObjectMapper();
         try {
@@ -125,6 +155,43 @@ public class LabRoomWeb extends AdminWebBean {
         }
         return result;
     }
+
+    @RequestMapping("/modifyConsumptionGoodsStock")
+    public String modifyConsumptionGoodsStock(Model model,
+                                                @RequestParam("middleId")String middleId){
+        LabRoomConsumptionGoods entity = labRoomConsumptionGoodsService.findById(middleId);
+        ConsumptionGoods goods = entity.getConsumptionGoods();
+        model.addAttribute("middleId", middleId);
+        model.addAttribute("stockNum", goods.getTotalStock());
+        return "/pages/labroom/modifyConsumptionGoodsStock";
+    }
+
+    @RequestMapping("/submitConsumptionGoodsStock")
+    public @ResponseBody Result submitConsumptionGoodsStock(Model model,
+                                              @RequestParam("middleId")String middleId,
+                                                    @RequestParam("number")Integer number,
+                                                        @RequestParam("detail")String detail){
+        LabRoomConsumptionGoods entity = labRoomConsumptionGoodsService.findById(middleId);
+        ConsumptionGoods goods = entity.getConsumptionGoods();
+        Result result = new Result(Result.CODE_OK, "Success");
+        if (consumptionGoodsService.modifyStock(goods.getId(),ConsumptionGoodsUsage.TYPE_OUT,number)) {
+            ConsumptionGoodsUsage goodsUsage = new ConsumptionGoodsUsage();
+            goodsUsage.setConsumptionGoodsId(goods.getId());
+            goodsUsage.setDetail(detail);
+            goodsUsage.setQuantity(number);
+            goodsUsage.setType(ConsumptionGoodsUsage.TYPE_OUT);
+            consumptionGoodsUsageService.addUsage(goodsUsage);
+        } else {
+
+            result.setStatusCode(Result.CODE_ERROR);
+            result.setMessage("Fuck Java");
+        }
+
+        entity.setQuantity(entity.getQuantity()+number);
+        labRoomConsumptionGoodsService.update(entity);
+        return result;
+    }
+
 
     @RequestMapping("/editdata")
     public @ResponseBody

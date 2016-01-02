@@ -16,7 +16,14 @@
         name: 'type',
         label: '类型',
         align: 'center',
-        width: 50
+        width: 50,
+        render: function(type){
+          if(type==1){
+            return "收入";
+          } else {
+            return "转出";
+          }
+        }
       },
       {
         name: 'quantity',

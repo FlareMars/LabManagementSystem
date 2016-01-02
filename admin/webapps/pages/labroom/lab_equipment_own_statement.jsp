@@ -5,6 +5,7 @@
   $('#lab_equipment_usage-datagrid').datagrid({
     showToolbar: true,
     local: 'local',
+      gridTitle: '实验室仪器设备详情列表',
     dataUrl: '<lms:path/>/labroom/lab_equipment_own_statement?labRoomId=<c:out value="${labRoomId}"/>',
     dataType: 'json',
     sortAll: true,
@@ -12,28 +13,40 @@
     showLinenumber: true,
     columns: [
       {
-        name: 'name',
+        name: 'equipment',
         label: '设备名字',
         align: 'center',
-        width: 100
+        width: 100,
+          render: function(value){
+              return value.name;
+          }
       },
       {
-        name: 'model',
+        name: 'equipment',
         label: '设备型号',
         align: 'center',
-        width: 140
+        width: 140,
+          render: function(value){
+              return value.model;
+          }
       },
       {
-        name: 'number',
+        name: 'equipment',
         label: '设备编号',
         align: 'center',
-        width: 140
+        width: 140,
+          render: function(value){
+              return value.number;
+          }
       },
       {
-        name: 'function',
+        name: 'equipment',
         label: '设备功能简介',
         align: 'center',
-        width: 140
+        width: 140,
+          render: function(value){
+              return value.function;
+          }
       }
     ],
     paging: false,
@@ -46,5 +59,6 @@
   <table id="lab_equipment_usage-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
   </table>
 </div>
+
 
 

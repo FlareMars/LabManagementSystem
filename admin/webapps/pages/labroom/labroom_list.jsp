@@ -74,12 +74,14 @@
                 }
             },
             {
-                name: 'consumptionGoodsList',
+                name: 'id',
                 label: '低值品列表',
                 align: 'center',
                 width: 100,
-                render: function(value){
-                    return value.name;
+                render: function(id) {
+                    var url = '<lms:path/>/labroom/lab_consumption_goods_own_page?labRoomId=' + id;
+                    console.log(url);
+                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
                 }
             }
         ],

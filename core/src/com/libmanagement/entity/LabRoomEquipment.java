@@ -2,10 +2,8 @@ package com.libmanagement.entity;
 
 import com.libmanagement.common.entity.Describertable;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -24,6 +22,10 @@ public class LabRoomEquipment extends Describertable {
     //数量
     private Integer quantity = 1;
 
+    //实验室
+    @Column(name="lab_room_id")
+    private String labRoomId;
+
     //考虑是否需要计量单位的记录
 
     public Equipment getEquipment() {
@@ -40,5 +42,13 @@ public class LabRoomEquipment extends Describertable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public String getLabRoomId() {
+        return labRoomId;
+    }
+
+    public void setLabRoomId(String labRoomId) {
+        this.labRoomId = labRoomId;
     }
 }
