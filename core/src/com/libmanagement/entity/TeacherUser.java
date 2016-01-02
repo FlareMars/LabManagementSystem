@@ -82,4 +82,8 @@ public class TeacherUser extends Describertable {
     public void setCurrentAcademy(Academy currentAcademy) {
         this.currentAcademy = currentAcademy;
     }
+
+    public String getCurrentAcademyName() {
+        return currentAcademy.getName() + "_" + currentAcademy.getId();
+    }
 }

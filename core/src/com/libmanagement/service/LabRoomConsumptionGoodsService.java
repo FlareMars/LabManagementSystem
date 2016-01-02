@@ -33,4 +33,8 @@ public class LabRoomConsumptionGoodsService {
     public LabRoomConsumptionGoods findById(String id){
         return consumptionGoodsRepository.findOne(id);
     }
+
+    public void addLabRoomGoods(LabRoomConsumptionGoods data) {
+        consumptionGoodsRepository.save(data);
+    }
 }

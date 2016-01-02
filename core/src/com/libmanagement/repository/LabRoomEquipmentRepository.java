@@ -14,4 +14,7 @@ public interface LabRoomEquipmentRepository extends JpaRepository<LabRoomEquipme
 
     @Query("select t from LabRoomEquipment as t where t.labRoomId=?1")
     List<LabRoomEquipment> findByLabRoomId(String roomId);
+
+    @Query("select t from LabRoomEquipment as t where t.labRoomId=?1 and t.equipment.id=?2")
+    List<LabRoomEquipment> findByRoomIdAndEquipmentId(String roomId,String equipmentId);
 }

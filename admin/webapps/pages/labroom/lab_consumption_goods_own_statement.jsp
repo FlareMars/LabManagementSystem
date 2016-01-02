@@ -4,9 +4,8 @@
 <script type="text/javascript">
   $('#lab_consumption_goods_usage-datagrid').datagrid({
     showToolbar: true,
-    gridTitle: '实验室消耗品详情列表',
+    gridTitle: '<c:out value="${title}"/>',
     local: 'local',
-    toolbarItem: 'add, edit, cancel, | , save, del',
     dataUrl: '<lms:path/>/labroom/lab_consumption_goods_own_statement?labRoomId=<c:out value="${labRoomId}"/>',
     dataType: 'json',
     sortAll: true,
@@ -41,13 +40,10 @@
           }
       },
       {
-        name: 'consumptionGoods',
-        label: '库存总量',
+        name: 'quantity',
+        label: '库存',
         align: 'center',
-        width: 140,
-          render: function(value){
-              return value.totalStock;
-          }
+        width: 140
       },
       {
         name: 'id',
@@ -67,8 +63,11 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-  <table id="lab_consumption_goods_usage-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
-  </table>
+    <table id="lab_consumption_goods_usage-datagrid" data-width="100%" data-height="90%" class="table table-bordered table-hover table-striped table-top">
+    </table>
+    <button type="button" class="btn btn-blue" style="width: 100%;" data-toggle="dialog"
+            data-id="addConsumptionGoodsDialog" data-url="<lms:path/>/consumption_goods/goodsList?labRoomId=<c:out value="${labRoomId}"/>"
+            data-title="选择需要添加的种类" data-mask="true"  data-height="460" data-width="1000">添加消耗品种类</button>
 </div>
 
 

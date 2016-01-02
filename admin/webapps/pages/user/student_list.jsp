@@ -42,7 +42,7 @@
                 width: 140
             },
             {
-                name: 'currentClass',
+                name: 'currentClassName',
                 label: '所在班级',
                 align: 'center',
                 width: 100,
@@ -51,7 +51,7 @@
                     return $.getJSON('<lms:path/>/classes/list_all_classes');
                 },
                 render: function(value) {
-                    return value.name;
+                    return value.substring(0,value.indexOf('_'));
                 }
 
             }

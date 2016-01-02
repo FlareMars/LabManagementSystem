@@ -106,6 +106,8 @@ public class FileRest extends RestBaseBean {
         result.setMessage("上传成功");
         result.setStatusCode(200);
 
+        System.out.println(fileName + " " + planId + " " + studentId + " " + fileType);
+
         String path = "";
         if (sourceFile == null) {
             result.setStatusCode(210);

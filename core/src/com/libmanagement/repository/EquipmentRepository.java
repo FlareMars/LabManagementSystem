@@ -21,6 +21,12 @@ public interface EquipmentRepository extends JpaRepository<Equipment, String> {
     @Query("select t from Equipment as t")
     List<Equipment> listEquipments();
 
+    @Query("select t from Equipment as t where t.labRoom.id != ?1")
+    List<Equipment> listEquipments(String labRoomId);
+    
+    @Query("SELECT t from Equipment as t where t.labRoom.id != ?1 and t.name like ?2")
+    List<Equipment> listEquipments(String labRoomId,String name);
+
     @Query("select t from Equipment as t where t.name=?1")
     List<Equipment> findByName(String name);
 

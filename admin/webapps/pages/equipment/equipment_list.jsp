@@ -59,8 +59,8 @@
                 render: function(value) {
                     var url = '<lms:path/>/pages/equipment/doUsage.jsp?equipmentId=' + value;
 
-                    return "<button data-toggle='ajaxload' class='editBtn btn btn-green' data-target='#usageTable' href='<lms:path/>/equipment/usage_statement?equipment=" + value + "'>" + "使用情况" + "</button>" +
-                            "<button data-toggle='dialog' class='btn btn-red' data-id='handleEquipmentDialog' data-width='400' data-title='操作仪器设备' data-mask='true' data-url='" + url +  "'>操作</button>";
+                    return "<button data-toggle='ajaxload' class='editBtn btn btn-green' data-target='#usageTable' href='<lms:path/>/equipment/usage_statement?equipment=" + value + "'>" + "使用情况" + "</button>";// +
+                            //"<button data-toggle='dialog' class='btn btn-red' data-id='handleEquipmentDialog' data-width='400' data-title='操作仪器设备' data-mask='true' data-url='" + url +  "'>操作</button>";
 
                 }
             }

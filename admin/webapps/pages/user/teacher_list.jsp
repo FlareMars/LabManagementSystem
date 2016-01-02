@@ -51,7 +51,7 @@
                     return $.getJSON('<lms:path/>/academy/list_all_academies');
                 },
                 render: function(value) {
-                    return value.name;
+                    return value.substring(0,value.indexOf('_'));
                 }
 
             }

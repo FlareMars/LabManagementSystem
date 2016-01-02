@@ -6,6 +6,8 @@ import com.libmanagement.entity.EquipmentUsage;
 import com.libmanagement.entity.LabRoom;
 import com.libmanagement.repository.EquipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,6 +31,14 @@ public class EquipmentService {
     private EquipmentUsageService usageService;
 
     public List<Equipment> listEquipments() {return equipmentRepository.listEquipments();}
+
+    public Page<Equipment> listEquipmentsPage(String labRoomId) {
+        return new PageImpl<Equipment>(equipmentRepository.listEquipments(labRoomId));
+    }
+
+    public Page<Equipment> listEquipmentsPageByName(String labRoomId,String name) {
+        return new PageImpl<Equipment>(equipmentRepository.listEquipments(labRoomId,name));
+    }
 
     public String addEquipment(Equipment temp) {
         temp.setId(StringUtils.INSTANCE.generateUUID());

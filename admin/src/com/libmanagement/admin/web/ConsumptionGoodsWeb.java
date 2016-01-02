@@ -11,6 +11,7 @@ import net.sf.json.JSONArray;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -141,5 +142,19 @@ public class ConsumptionGoodsWeb extends AdminWebBean {
             result.setStatusCode(210);
         }
         return result;
+    }
+
+    @RequestMapping("/goodsList")
+    public String goodsList(Model model,@RequestParam("labRoomId")String labRoomId,
+                            @RequestParam(value = "name",required = false)String name) {
+        model.addAttribute("labRoomId",labRoomId);
+        Page<ConsumptionGoods> goodsPage;
+        if (name == null || name.equals("")) {
+            goodsPage = consumptionGoodsService.listGoods();
+        } else {
+            goodsPage = consumptionGoodsService.listGoodsByName(name);
+        }
+        model.addAttribute("goodsPage",goodsPage);
+        return "/pages/consumption_goods/goodsList";
     }
 }

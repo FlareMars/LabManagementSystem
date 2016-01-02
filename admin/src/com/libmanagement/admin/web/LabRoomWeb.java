@@ -17,11 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
  * Created by FlareMars on 2015/11/28
- * �û�����������
+ * 用户管理控制器
  */
 @Controller
 @RequestMapping("/labroom")
@@ -45,6 +46,12 @@ public class LabRoomWeb extends AdminWebBean {
 
     @Autowired
     private ConsumptionGoodsUsageService consumptionGoodsUsageService;
+
+    @Autowired
+    private EquipmentService equipmentService;
+
+    @Autowired
+    private EquipmentUsageService equipmentUsageService;
 
     @RequestMapping("/labroom_page")
     public String listLabRoom() {
@@ -117,6 +124,8 @@ public class LabRoomWeb extends AdminWebBean {
     @RequestMapping("/lab_equipment_own_page")
     public String listLabRoomEquipmentUsage(@RequestParam("labRoomId") String labRoomId, Model model) {
         model.addAttribute("labRoomId", labRoomId);
+        LabRoom labRoom = labRoomService.findById(labRoomId);
+        model.addAttribute("title","【" + labRoom.getDepartment() + labRoom.getRoomNumber() + "】仪器设备列表");
         return "/pages/labroom/lab_equipment_own_statement";
     }
 
@@ -138,6 +147,8 @@ public class LabRoomWeb extends AdminWebBean {
     @RequestMapping("/lab_consumption_goods_own_page")
     public String listLabRoomConsumptionGoodsUsage(@RequestParam("labRoomId") String labRoomId, Model model) {
         model.addAttribute("labRoomId", labRoomId);
+        LabRoom labRoom = labRoomService.findById(labRoomId);
+        model.addAttribute("title","【" + labRoom.getDepartment() + labRoom.getRoomNumber() + "】消耗品列表");
         return "/pages/labroom/lab_consumption_goods_own_statement";
     }
 
@@ -192,14 +203,76 @@ public class LabRoomWeb extends AdminWebBean {
         return result;
     }
 
+    @RequestMapping("/addConsumptionGoodsAction")
+    public @ResponseBody
+    Result addConsumptionGoodsAction(@RequestParam("goodsId")String goodsId,@RequestParam("labRoomId")String labRoomId) {
+        Result result = new Result(Result.CODE_OK,"success");
+        ConsumptionGoods goods = consumptionGoodsService.findById(goodsId);
+        LabRoomConsumptionGoods labRoomGoods = new LabRoomConsumptionGoods();
+        labRoomGoods.setConsumptionGoods(goods);
+        labRoomGoods.setLabRoomId(labRoomId);
+        labRoomGoods.setQuantity(0);
+        labRoomConsumptionGoodsService.addLabRoomGoods(labRoomGoods);
+        return result;
+    }
+
+    @RequestMapping("/addEquipmentAction")
+         public @ResponseBody
+         Result addEquipmentAction(@RequestParam("equipmentId")String equipmentId,@RequestParam("labRoomId")String labRoomId) {
+        Result result = new Result(Result.CODE_OK,"success");
+        Equipment equipment = equipmentService.findById(equipmentId);
+        String oldPosition = equipment.getPosition();
+
+        List<LabRoomEquipment> oldMiddleEntity = labRoomEquipmentService.findByRoomIdAndEquipmentId(equipment.getLabRoom().getId(),equipmentId);
+        labRoomEquipmentService.delete(oldMiddleEntity);
+
+        LabRoomEquipment labRoomEquipment = new LabRoomEquipment();
+        labRoomEquipment.setEquipment(equipment);
+        labRoomEquipment.setLabRoomId(labRoomId);
+        labRoomEquipment.setQuantity(1);
+        labRoomEquipmentService.addRoomEquipment(labRoomEquipment);
+
+        LabRoom targetLabRoom = labRoomService.findById(labRoomId);
+        equipment.setPosition(targetLabRoom.getDepartment()+targetLabRoom.getRoomNumber());
+        equipment.setLabRoom(targetLabRoom);
+        equipmentService.updateEquipment(equipment);
+
+        EquipmentUsage equipmentUsage = new EquipmentUsage();
+        equipmentUsage.setEquipmentId(equipmentId);
+        equipmentUsage.setDetail("从 " + oldPosition + " 转移到 " + equipment.getPosition());
+        equipmentUsage.setUsageType(EquipmentUsage.TYPE_MOVE);
+        equipmentUsageService.addUsage(equipmentUsage);
+        return result;
+    }
+
 
     @RequestMapping("/editdata")
     public @ResponseBody
-    Result editData(@RequestParam("json") String json, @RequestParam("type") String type) {
-        System.out.println(json);
-        System.out.println(type);
-        Result result = new Result(Result.CODE_OK,"test");
+    Result editData(@RequestParam("json") String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        Result result = new Result();
+        result.setStatusCode(200);
+        result.setMessage("success");
+        try {
+            List<LinkedHashMap<String, Object>> source = mapper.readValue(json, List.class);
+            LinkedHashMap<String, Object> temp;
 
+            LabRoom tempEntity;
+            for (Object aSource : source) {
+                temp = (LinkedHashMap<String, Object>) aSource;
+                tempEntity = mapper.readValue(mapper.writeValueAsString(temp), LabRoom.class);
+                if (temp.containsKey("addFlag")) {
+                    labRoomService.addLabRoom(tempEntity);
+                } else {
+                    labRoomService.updateLabRoom(tempEntity);
+                }
+            }
+
+        }catch(IOException e){
+            e.printStackTrace();
+            result.setStatusCode(210);
+            result.setMessage("json parse fail~");
+        }
         return result;
     }
 }

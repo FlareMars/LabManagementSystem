@@ -1,6 +1,7 @@
 package com.libmanagement.service;
 
 import com.libmanagement.entity.LabRoom;
+import com.libmanagement.entity.User;
 import com.libmanagement.repository.LabRoomRepository;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,8 +55,15 @@ public class LabRoomService {
     }
 
     public String addLabRoom(LabRoom temp) {
-        //todo 检查参数
+        if (temp.getType() == null) {
+            temp.setType(LabRoom.TYPE_COMPUTER_SCIENCE);
+        }
 
+        if (temp.getManager() == null) {
+            User defaultManager = new User();
+            defaultManager.setId("5c5a8bbb0a2b4bd68a522e64e5b6f392");
+            temp.setManager(defaultManager);
+        }
         labRoomRepository.save(temp);
         return temp.getId();
     }
@@ -66,6 +74,7 @@ public class LabRoomService {
             LabRoom entity = temp.get(0);
             entity.setDescription(data.getDescription());
             entity.setType(data.getType());
+            entity.setManager(data.getManager());
             labRoomRepository.save(entity);
         }
     }

@@ -17,9 +17,21 @@ public class LabRoomEquipmentService {
     private Log logger = LogFactory.getLog(LabRoomUsageService.class);
 
     @Autowired
-    private LabRoomEquipmentRepository equipmentRepository;
+    private LabRoomEquipmentRepository roomEquipmentRepository;
 
     public List<LabRoomEquipment> findByRoomId(String roomId){
-        return equipmentRepository.findByLabRoomId(roomId);
+        return roomEquipmentRepository.findByLabRoomId(roomId);
+    }
+
+    public void addRoomEquipment(LabRoomEquipment roomEquipment) {
+        roomEquipmentRepository.save(roomEquipment);
+    }
+
+    public List<LabRoomEquipment> findByRoomIdAndEquipmentId(String roomId,String equipmentId) {
+        return roomEquipmentRepository.findByRoomIdAndEquipmentId(roomId,equipmentId);
+    }
+
+    public void delete(List<LabRoomEquipment> data) {
+        roomEquipmentRepository.delete(data);
     }
 }

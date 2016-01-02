@@ -1,6 +1,7 @@
 package com.libmanagement.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.libmanagement.common.entity.Describertable;
 
 import javax.persistence.*;
@@ -12,12 +13,14 @@ import java.util.List;
  */
 @Entity
 @Table(name = "lms_lab_room")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LabRoom extends Describertable {
 
-    public static final Integer TYPE_COMPUTER_SCIENCE = 1;
-    public static final Integer TYPE_PHYSICS  = 2;
-    public static final Integer TYPE_BIOLOGY = 3;
-    public static final Integer TYPE_CHEMISTRY = 4;
+    public static final Integer TYPE_COMPUTER_SCIENCE = 0;
+    public static final Integer TYPE_PHYSICS  = 1;
+    public static final Integer TYPE_BIOLOGY = 2;
+    public static final Integer TYPE_CHEMISTRY = 3;
+    public static final Integer TYPE_REPOSITORY = 4;
 
     //ËùÔÚ´óÂ¥
     private String department;
@@ -126,5 +129,9 @@ public class LabRoom extends Describertable {
 
     public void setConsumptionGoodsList(List<LabRoomConsumptionGoods> consumptionGoodsList) {
         this.consumptionGoodsList = consumptionGoodsList;
+    }
+
+    public String getManagerInfo() {
+        return manager.getRealName() + "_" + manager.getId();
     }
 }

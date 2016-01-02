@@ -6,6 +6,8 @@ import com.libmanagement.entity.ConsumptionGoods;
 import com.libmanagement.entity.ConsumptionGoodsUsage;
 import com.libmanagement.repository.ConsumptionGoodsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -84,5 +86,13 @@ public class ConsumptionGoodsService {
 
     public List<ConsumptionGoodsUsage> listUsage(String id) {
         return usageService.findByGoodsId(id);
+    }
+
+    public Page<ConsumptionGoods> listGoods() {
+        return new PageImpl<ConsumptionGoods>(consumptionGoodsrepository.findAll());
+    }
+
+    public Page<ConsumptionGoods> listGoodsByName(String name) {
+        return new PageImpl<ConsumptionGoods>(consumptionGoodsrepository.findByVagueName("%"+name+"%"));
     }
 }

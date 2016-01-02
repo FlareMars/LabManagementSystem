@@ -5,7 +5,7 @@
   $('#lab_equipment_usage-datagrid').datagrid({
     showToolbar: true,
     local: 'local',
-      gridTitle: '实验室仪器设备详情列表',
+      gridTitle: '<c:out value="${title}"/>',
     dataUrl: '<lms:path/>/labroom/lab_equipment_own_statement?labRoomId=<c:out value="${labRoomId}"/>',
     dataType: 'json',
     sortAll: true,
@@ -56,8 +56,10 @@
 </script>
 
 <div class="bjui-pageContent tableContent" >
-  <table id="lab_equipment_usage-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
-  </table>
+  <table id="lab_equipment_usage-datagrid" data-width="100%" data-height="90%" class="table table-bordered table-hover table-striped table-top">
+  </table>    <button type="button" class="btn btn-blue" style="width: 100%;" data-toggle="dialog"
+                      data-id="addEquipmentDialog" data-url="<lms:path/>/equipment/equipmentList?labRoomId=<c:out value="${labRoomId}"/>"
+                      data-title="选择需要添加的仪器设备" data-mask="true"  data-height="460" data-width="1000">添加设备仪器</button>
 </div>
 
 

@@ -17,7 +17,7 @@ public class LabRoomConsumptionGoods extends Describertable {
     private ConsumptionGoods consumptionGoods;
 
     //数量
-    private Integer quantity = 1;
+    private Integer quantity = 0;
 
     //实验室
     @Column(name="lab_room_id")

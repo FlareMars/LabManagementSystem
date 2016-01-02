@@ -41,7 +41,7 @@ public class ClassWeb extends AdminWebBean {
         List<Map<String,String>> beanList = new ArrayList<>(list.size());
         for (Classes temp : list) {
             Map<String,String> bean = new HashMap<>();
-            bean.put(temp.getId(),temp.getName());
+            bean.put(temp.getName()+"_"+temp.getId(),temp.getName());
             beanList.add(bean);
         }
         return beanList;

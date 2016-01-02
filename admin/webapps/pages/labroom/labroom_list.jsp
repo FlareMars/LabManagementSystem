@@ -12,15 +12,21 @@
         filterAll: true,
         columns: [
             {
+                name: 'id',
+                hide: true
+            },
+            {
                 name: 'department',
                 label: '所在大楼',
                 align: 'center',
+                rule:'required',
                 width: 100
             },
             {
                 name: 'roomNumber',
                 label: '课室号',
                 align: 'center',
+                rule:'required',
                 width: 140
             },
             {
@@ -35,16 +41,16 @@
                 align: 'center',
                 width: 140,
                 type: 'select',
-                items: [{0:'计算机实验室'}, {1:'物理实验室'}, {2:'生物实验室'}, {3:'化学实验室'}]
+                items: [{0:'计算机实验室'}, {1:'物理实验室'}, {2:'生物实验室'}, {3:'化学实验室'},{4:'仓库'}]
             },
             {
-                name: 'manager',
+                name: 'managerInfo',
                 label: '管理员',
                 align: 'center',
                 width: 140,
                 type: 'select',
-                render: function(value){
-                    return value.realName;
+                render: function(value) {
+                    return value.substring(0,value.indexOf('_'));
                 },
                 items: function(){
                     return $.getJSON('<lms:path/>/roommanager/list_all_managers')
@@ -52,41 +58,24 @@
             },
             {
                 name: 'id',
-                label: '使用情况列表',
+                label: ' ',
                 align: 'center',
-                width: 100,
+                width: 320,
+                edit: false,
+                add: false,
                 render: function(id) {
-                    var url = '<lms:path/>/labroom/labroom_usage_page?labRoomId=' + id;
-                    console.log(url);
-                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
+                    var urlUsage = '<lms:path/>/labroom/labroom_usage_page?labRoomId=' + id;
+                    var urlEquipment = '<lms:path/>/labroom/lab_equipment_own_page?labRoomId=' + id;
+                    var urlConsumptionGoods = '<lms:path/>/labroom/lab_consumption_goods_own_page?labRoomId=' + id;
+                    return "<button data-toggle='ajaxload' class='editBtn btn btn-red' data-target='#container' href='" + urlUsage + "'>使用情况列表</button>" + "<i> </i>" +
+                            "<button data-toggle='ajaxload' class='editBtn btn btn-blue' data-target='#container' href='" + urlEquipment + "'>设备仪器列表</button>" + "<i> </i>" +
+                            "<button data-toggle='ajaxload' class='editBtn btn btn-green' data-target='#container' href='" + urlConsumptionGoods + "'>低值品列表</button>"
                 }
 
-            },
-            {
-                name: 'id',
-                label: '设备仪器列表',
-                align: 'center',
-                width: 100,
-                render: function(id) {
-                    var url = '<lms:path/>/labroom/lab_equipment_own_page?labRoomId=' + id;
-                    console.log(url);
-                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
-                }
-            },
-            {
-                name: 'id',
-                label: '低值品列表',
-                align: 'center',
-                width: 100,
-                render: function(id) {
-                    var url = '<lms:path/>/labroom/lab_consumption_goods_own_page?labRoomId=' + id;
-                    console.log(url);
-                    return "<a data-toggle='ajaxload' data-target='#container' href='" + url + "'>查看</a>"
-                }
             }
         ],
-        editUrl: '<lms:path/>/labroom/editdata?type=labroom',
-        delUrl: '<lms:path/>/labroom/deletedata?type=labroom',
+        editUrl: '<lms:path/>/labroom/editdata',
+        delUrl: '<lms:path/>/labroom/deletedata',
         delPK: 'id',
         paging: false,
         linenumberAll: true,
@@ -105,6 +94,6 @@
     </table>
 </div>
 
-<div class="bjui-layout" style="top: 350px;height:250px" id="container"></div>
+<div class="bjui-layout" style="top: 350px;height:300px" id="container"></div>
 
 

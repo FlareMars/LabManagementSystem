@@ -92,4 +92,8 @@ public class StudentUser extends Describertable {
     public void setCurrentClass(Classes currentClass) {
         this.currentClass = currentClass;
     }
+
+    public String getCurrentClassName() {
+        return currentClass.getName()+"_"+currentClass.getId();
+    }
 }
