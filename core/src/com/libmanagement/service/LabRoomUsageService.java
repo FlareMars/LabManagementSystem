@@ -1,7 +1,9 @@
 package com.libmanagement.service;
 
+import com.libmanagement.entity.LabRoom;
 import com.libmanagement.entity.LabRoomUsage;
 import com.libmanagement.repository.LabRoomUsageRepository;
+import javafx.scene.input.DataFormat;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,5 +40,18 @@ public class LabRoomUsageService {
     public String addUsage(LabRoomUsage data) {
         labRoomUsageRepository.save(data);
         return data.getId();
+    }
+
+    public void updateUsage(LabRoomUsage data){
+        labRoomUsageRepository.save(data);
+    }
+
+    public List<LabRoomUsage> findByRoomId(String labRoomId){
+        try {
+            return labRoomUsageRepository.findByLabRoomId(labRoomId, DATE_FORMAT.parse("2000-01-01"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

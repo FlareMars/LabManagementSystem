@@ -13,6 +13,9 @@ import java.util.Date;
 @Table(name = "lms_lab_room_usage")
 public class LabRoomUsage extends Describertable{
 
+    public static final Integer[] END_HOURS = {11, 17, 21};
+    public static final Integer[] END_MINUTES = {50, 40, 0};
+
     //类别：预约
     public static final Integer TYPE_BOOKING = 1;
     //类别：完成
@@ -26,7 +29,7 @@ public class LabRoomUsage extends Describertable{
     private Date targetDate;
 
     //目标时间段 只能从1-3中选取
-    //1, 早上8:00 到 早上11:50；2, 下午2:00 到 下午5:40；3, 晚上7:00 到 晚上9:00
+    //0, 早上8:00 到 早上11:50；1, 下午2:00 到 下午5:40；2, 晚上7:00 到 晚上9:00
     private Integer targetTime;
 
     //所处状态

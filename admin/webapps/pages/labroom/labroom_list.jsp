@@ -43,17 +43,21 @@
                 align: 'center',
                 width: 140,
                 type: 'select',
+                render: function(value){
+                    return value.realName;
+                },
                 items: function(){
                     return $.getJSON('<lms:path/>/roommanager/list_all_managers')
                 }
             },
             {
-                name: 'usageList',
+                name: 'id',
                 label: '使用情况列表',
                 align: 'center',
                 width: 100,
-                render: function(value) {
-                    return value.name;
+                render: function(id) {
+                    var url = '<lms:path/>/labroom/labroom_usage_page?labRoomId=' + id;
+                    return "<a data-toggle='ajaxload' data-target='#usageTable' href='" + url + "'>查看</a>"
                 }
 
             },
@@ -62,8 +66,9 @@
                 label: '设备仪器列表',
                 align: 'center',
                 width: 100,
-                render: function(value){
-                    return value.name;
+                render: function(id) {
+                    var url = '<lms:path/>/labroom/lab_equipment_own_statement?labRoomId=' + id;
+                    return "<a data-toggle='ajaxload' data-target='#equipmentUsageTable' href='" + url + "'>查看</a>"
                 }
             },
             {
@@ -95,5 +100,8 @@
     <table id="labrooms-datagrid" data-width="100%" data-height="100%" class="table table-bordered table-hover table-striped table-top">
     </table>
 </div>
+
+<div class="bjui-layout" style="top: 350px;height:250px" id="usageTable"></div>
+<div class="bjui-layout" style="top: 350px;height:250px" id="equipmentUsageTable"></div>
 
 
